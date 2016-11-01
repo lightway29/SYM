@@ -1,0 +1,461 @@
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/uikit.min.js"></script>
+<!--<script type="text/javascript" src="../../js/videobackground.js"></script>-->
+<script type="text/javascript" src="/static/js/jquery.fullPage.js"></script>
+<script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/js/css3-animate-it.js"></script>
+<script type="text/javascript" src="/static/js/moment-with-locales.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.flexslider.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/static/js/script.js"></script>
+<script type="text/javascript" src="/static/lib/validator-js/validator.min.js"></script>
+
+
+
+<script type="text/javascript" >
+
+
+    $('#startdate').datetimepicker({
+        ignoreReadonly: true,
+        format: 'DD/MM/YYYY',
+        minDate: moment()
+    });
+
+    $('#enddate').datetimepicker({
+        ignoreReadonly: true,
+        format: 'DD/MM/YYYY',
+        minDate: moment()
+    });
+
+
+    $("#startdate").on("dp.change", function (e) {
+
+
+        var departureDate   = document.getElementById('startdate').value.split("/");
+        var departureDateObject = new Date(departureDate[2], departureDate[1] - 1, departureDate[0]);
+        var arrivalDate     = document.getElementById('enddate').value.split("/");
+        var arrivalDateObject = new Date(arrivalDate[2], arrivalDate[1] - 1, arrivalDate[0]);
+
+        if(departureDateObject >= arrivalDateObject){
+            $('#enddate').get(0).setCustomValidity('Entered Date is a Invalid type.');
+            document.getElementById("traveldate_lbl").innerHTML = "0<p>Days</p>";
+        }else {
+            var a = moment(departureDateObject);
+            var b = moment(arrivalDateObject);
+            var diffDays = b.diff(a, 'days');
+            document.getElementById("traveldate_lbl").innerHTML = diffDays+"<p>Days</p>";
+            $('#enddate').get(0).setCustomValidity('');
+        }
+    });
+
+
+    $("#enddate").on("dp.change", function (e) {
+
+
+        var departureDate   = document.getElementById('startdate').value.split("/");
+        var departureDateObject = new Date(departureDate[2], departureDate[1] - 1, departureDate[0]);
+        var arrivalDate     = document.getElementById('enddate').value.split("/");
+        var arrivalDateObject = new Date(arrivalDate[2], arrivalDate[1] - 1, arrivalDate[0]);
+
+        if(departureDateObject>=arrivalDateObject){
+            $('#enddate').get(0).setCustomValidity('Entered Date is a Invalid type.');
+            document.getElementById("traveldate_lbl").innerHTML = "0<p>Days</p>";
+        }else {
+
+            var a = moment(departureDateObject);
+            var b = moment(arrivalDateObject);
+            var diffDays = b.diff(a, 'days');
+            document.getElementById("traveldate_lbl").innerHTML = diffDays+"<p>Days</p>";
+            $('#enddate').get(0).setCustomValidity('');
+        }
+
+    });
+
+
+    $('#dateOfDepartureDatePicker').datetimepicker({
+        ignoreReadonly: true,
+        format: 'DD/MM/YYYY',
+        minDate: moment()
+    });
+
+    $('#dateOfArrivalDatePicker').datetimepicker({
+        ignoreReadonly: true,
+        format: 'DD/MM/YYYY',
+        minDate: moment()
+
+
+    });
+
+    $('#insuranceDetailDatePicker').datetimepicker({
+        ignoreReadonly: true,
+        format: 'DD/MM/YYYY',
+        minDate: moment()
+
+
+    });
+
+    $('#dobTravelInsurance').datetimepicker({
+        ignoreReadonly: true,
+        format: 'DD/MM/YYYY',
+        maxDate: moment()
+
+
+    });
+
+    $(".readonly").keydown(function(e){
+        e.preventDefault();
+    });
+
+
+    $("#dateOfArrivalDatePicker").on("dp.change", function (e) {
+
+
+        var departureDate   = document.getElementById('dateOfDepartureSingleTrip').value.split("/");
+        var departureDateObject = new Date(departureDate[2], departureDate[1] - 1, departureDate[0]);
+        var arrivalDate     = document.getElementById('dateOfArrivalSingleTrip').value.split("/");
+        var arrivalDateObject = new Date(arrivalDate[2], arrivalDate[1] - 1, arrivalDate[0]);
+
+        if(departureDateObject >= arrivalDateObject){
+            $('#dateOfArrivalSingleTrip').get(0).setCustomValidity('Entered Date is a Invalid type.');
+        }else {
+            $('#dateOfArrivalSingleTrip').get(0).setCustomValidity('');
+        }
+    });
+
+
+    $("#dateOfDepartureDatePicker").on("dp.change", function (e) {
+
+
+        var departureDate   = document.getElementById('dateOfDepartureSingleTrip').value.split("/");
+        var departureDateObject = new Date(departureDate[2], departureDate[1] - 1, departureDate[0]);
+        var arrivalDate     = document.getElementById('dateOfArrivalSingleTrip').value.split("/");
+        var arrivalDateObject = new Date(arrivalDate[2], arrivalDate[1] - 1, arrivalDate[0]);
+
+        if(departureDateObject>=arrivalDateObject){
+            $('#dateOfArrivalSingleTrip').get(0).setCustomValidity('Entered Date is a Invalid type.');
+        }else {
+            $('#dateOfArrivalSingleTrip').get(0).setCustomValidity('');
+        }
+    });
+
+
+
+    (function (exports) {
+        function valOrFunction(val, ctx, args) {
+            if (typeof val == "function") {
+                return val.apply(ctx, args);
+            } else {
+                return val;
+            }
+        }
+
+        function InvalidInputHelper(input, options) {
+            input.setCustomValidity(valOrFunction(options.defaultText, window, [input]));
+
+            function changeOrInput() {
+                if (input.value == "") {
+                    input.setCustomValidity(valOrFunction(options.emptyText, window, [input]));
+                } else {
+                    input.setCustomValidity("");
+                }
+            }
+
+            function invalid() {
+                if (input.value == "") {
+                    input.setCustomValidity(valOrFunction(options.emptyText, window, [input]));
+                } else {
+                    input.setCustomValidity(valOrFunction(options.invalidText, window, [input]));
+                }
+            }
+
+            input.addEventListener("change", changeOrInput);
+            input.addEventListener("input", changeOrInput);
+            input.addEventListener("invalid", invalid);
+        }
+        exports.InvalidInputHelper = InvalidInputHelper;
+    })(window);
+
+
+
+
+
+    $(document).ready(function(){
+        $("input[data-type='number']").keyup(function(event){
+            // skip for arrow keys
+            if(event.which >= 37 && event.which <= 40){
+                event.preventDefault();
+            }
+            var $this = $(this);
+            var num = $this.val().replace(/,/gi, "");
+            var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
+            console.log(num2);
+            // the following line has been simplified. Revision history contains original.
+            $this.val(num2);
+        });
+    });
+
+    function validateFormDetailsV() {
+
+        var Make    =   document.getElementById('make');
+        var Model   =   document.getElementById("model");
+        var Year    =   document.getElementById("year");
+        var Value   =   $("input[data-type='number']").val();
+
+        Value = Value.replace( /,/g, "" );
+
+        return (
+                validator.isNumeric(Make.value)
+                &&  (Make.value>0)
+                &&  validator.isNumeric(Model.value)
+                &&  (Model.value>0)
+                &&  validator.isNumeric(Year.value)
+                &&  (Year.value>0)
+                &&  validator.isNumeric(Value)
+                &&  (Value>999)
+
+        );
+
+
+    }
+
+
+    function validateFormPersonalV() {
+
+        var Title       =   document.getElementById('title');
+        var FirstName   =   document.getElementById('firstname');
+        var LastName    =   document.getElementById("lastname");
+        var Email       =   document.getElementById("email");
+        var Mobile      =   document.getElementById("mobile");
+        var Nic         =   document.getElementById("nic");
+
+        var phonePattern=/^\d{10}$/;
+        var idPattern=/^[0-9]{9}[vVxX]$/;
+
+
+        return (
+                validator.isAlpha(Title.value)
+                &&  validator.isAlpha(FirstName.value)
+                &&  validator.isAlpha(LastName.value)
+                &&  validator.isEmail(Email.value)
+                &&  strMatch(Mobile.value,phonePattern)
+                &&  strMatch(Nic.value,idPattern)
+        );
+
+    }
+
+
+    function validateFormTripInfo() {
+
+        var TravelType =   document.getElementById('travelType');
+        var Departure  =   document.getElementById('dateOfDepartureSingleTrip');
+        var Arrival    =   document.getElementById("dateOfArrivalSingleTrip");
+        var Country    =   document.getElementById("country");
+        var Medical    =   document.getElementById("medical");
+        var Goods      =   document.getElementById("goods");
+
+        return (
+                validator.isNumeric(TravelType.value)
+                &&  moment(Arrival.value, "DD/MM/YYYY", true).isValid()
+                &&  moment(Departure.value, "DD/MM/YYYY", true).isValid()
+                &&  validator.isAlpha(Country.value)
+                &&  validator.isInt(Medical.value)
+                &&  (Medical.value>0)
+                &&  validator.isInt(Goods.value)
+                &&  (Goods.value>0)
+        );
+
+
+    }
+
+
+    function validateFormSingleTripPersonal() {
+
+        var Title       =   document.getElementById('title');
+        var FirstName   =   document.getElementById('firstname');
+        var LastName    =   document.getElementById("lastname");
+        var Mobile      =   document.getElementById("mobile");
+        var Passport    =   document.getElementById("passport");
+
+        var phonePattern=/^\d{10}$/;
+
+        return (
+                validator.isAlpha(Title.value)
+                && validator.isAlpha(FirstName.value)
+                && validator.isAlpha(LastName.value)
+                &&  strMatch(Mobile.value,phonePattern)
+                &&  validator.isAlphanumeric(Passport.value)
+
+        );
+
+
+
+
+    }
+
+
+
+
+
+
+    function validateFormInsuranceV() {
+
+        var no_claim_bonus      =   document.getElementById('no_claim_bonus');
+        var insurance_company   =   document.getElementById('insurance_company');
+        var cover_type          =   document.getElementById("cover_type");
+        var startDateInsurance  =   document.getElementById("startDateInsurance");
+        var voluntary_excess    =   document.getElementById("voluntary_excess");
+        var purpose             =   document.getElementById("purpose");
+        var termSmokeTrue       =   document.getElementById("termSmokeTrue");
+        var termSmokeFalse      =   document.getElementById("termSmokeFalse");
+
+
+
+
+        return (
+                !(termSmokeFalse.checked===termSmokeTrue.checked)
+                &&  validator.isNumeric(no_claim_bonus.value)
+                &&  (no_claim_bonus.value>0)
+                &&  validator.isNumeric(insurance_company.value)
+                &&  (insurance_company.value>0)
+                &&  validator.isNumeric(cover_type.value)
+                &&  (cover_type.value>0)
+                &&  moment(startDateInsurance.value, "DD/MM/YYYY", true).isValid()
+                &&  validator.isNumeric(voluntary_excess.value)
+                &&  (voluntary_excess.value>0)
+                &&  validator.isNumeric(purpose.value)
+                &&  (purpose.value>0)
+
+        );
+
+    }
+
+
+    function validateFormVFuther() {
+
+        var engine_number   =   document.getElementById('engine_number');
+        var chassis_no      =   document.getElementById('chassis_no');
+
+        return (
+                !(validator.isEmpty(engine_number.value))
+                &&  !(validator.isEmpty(chassis_no.value))
+
+        );
+
+    }
+
+
+    function validateFormShippingV() {
+
+        var phonePattern=/^\d{10}$/;
+
+        var shipping_method     =   document.getElementById('shipping_method');
+        var address             =   document.getElementById('address');
+        var altsuit             =   document.getElementById("altsuit");
+        var city                =   document.getElementById("city");
+        var country             =   document.getElementById("country");
+        var postalcode          =   document.getElementById("postalcode");
+        var phone               =   document.getElementById("phone");
+
+        var sameAsRegistered    =   document.getElementById("sameAsRegistered");
+
+        var address2             =   document.getElementById('address2');
+        var altsuit2             =   document.getElementById("altsuit2");
+        var city2                =   document.getElementById("city2");
+        var country2             =   document.getElementById("country2");
+        var postalcode2          =   document.getElementById("postalcode2");
+
+
+        var ccnum  = document.getElementById('cardnumber'),
+                //type   = document.getElementById('ccnum-type'),
+                expiry = document.getElementById('mmyy'),
+                cvc    = document.getElementById('cvv')
+                //submit = document.getElementById('submit')
+                //result = document.getElementById('result')
+                ;
+
+
+        if(sameAsRegistered.checked){
+
+            return (
+                    validator.isNumeric(shipping_method.value)
+                    &&  (shipping_method.value>0)
+                    &&  validator.isAlphanumeric(address.value)
+                    &&  validator.isAlphanumeric(altsuit.value)
+                    &&  validator.isAlphanumeric(city.value)
+                    &&  validator.isAlphanumeric(country.value)
+                    &&  validator.isAlphanumeric(postalcode.value)
+                    &&  strMatch(phone.value,phonePattern)
+
+                    &&  payform.validateCardNumber(ccnum.value)
+                    &&  payform.validateCardExpiry(payform.parseCardExpiry(expiry.value))
+                    &&  payform.validateCardCVC(cvc.value)
+
+
+
+            );
+
+        }else{
+
+            return (
+                    validator.isNumeric(shipping_method.value)
+                    &&  (shipping_method.value>0)
+                    &&  validator.isAlphanumeric(address.value)
+                    &&  validator.isAlphanumeric(altsuit.value)
+                    &&  validator.isAlphanumeric(city.value)
+                    &&  validator.isAlphanumeric(country.value)
+                    &&  validator.isAlphanumeric(postalcode.value)
+                    &&  strMatch(phone.value,phonePattern)
+
+                    &&  validator.isAlphanumeric(address2.value)
+                    &&  validator.isAlphanumeric(altsuit2.value)
+                    &&  validator.isAlphanumeric(city2.value)
+                    &&  validator.isAlphanumeric(country2.value)
+                    &&  validator.isAlphanumeric(postalcode2.value)
+
+                    &&  payform.validateCardNumber(ccnum.value)
+                    &&  payform.validateCardExpiry(payform.parseCardExpiry(expiry.value))
+                    &&  payform.validateCardCVC(cvc.value)
+
+
+            );
+        }
+
+
+    }
+
+    function strMatch(str,pattern) {
+        if(str.match(pattern)){
+
+            return true;
+        }
+
+        return false;
+    }
+
+    $('#sameAsRegistered').change(function() {
+        if ($(this).prop('checked')) {
+            //alert("You have elected to show your checkout history."); //checked
+
+            $('#address2').removeAttr('required');
+            $('#altsuit2').removeAttr('required');
+            $('#city2').removeAttr('required');
+            $('#country2').removeAttr('required');
+            $('#postalcode2').removeAttr('required');
+
+        }
+        else {
+           // alert("You have elected to turn off checkout history."); //not checked
+
+            document.getElementById("address2").required    = true;
+            document.getElementById("altsuit2").required     = true;
+            document.getElementById("city2").required       = true;
+            document.getElementById("country2").required    = true;
+            document.getElementById("postalcode2").required = true;
+        }
+    });
+
+
+</script>

@@ -95,7 +95,6 @@ module.exports = function(router){
                                     }
 
                                     //req.session.groupTripPersonalInfo = true;
-                                    console.log('group travel was a success')
 
 
                                 });

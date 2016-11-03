@@ -51,7 +51,7 @@ module.exports = function(router){
                         if(validateFormGroupTravelDetails(req.body,travelNumber)){
 
 
-                            for(var r=1;r<=num;r++){
+                            for(var r=1;r<=travelNumber;r++){
 
                                 var title           =  req.body['title'+r];
                                 var first_name      =  req.body['first_name'+r];
@@ -70,36 +70,41 @@ module.exports = function(router){
                                     email               :   email,
                                     mobile              :   mobile,
                                     dob                 :   convertDate(dob),
-                                    passport            :   passport_no
+                                    passport            :   passport_no,
+                                    order_no            :   r
 
                                 };
 
                                 var updateData={
 
-                                    travel_quotation_id :   req.session.id,
                                     title               :   title,
                                     first_name          :   first_name,
                                     last_name           :   last_name,
+                                    email               :   email,
                                     mobile              :   mobile,
                                     dob                 :   convertDate(dob),
-                                    passport            :   passport_no
+                                    passport            :   passport_no,
+
                                 };
+
+                                var query = connection.query('INSERT INTO group_info set ? ON DUPLICATE KEY UPDATE ?', [data,updateData], function (err, rows) {
+
+
+                                    if (err) {
+                                        console.log('Error Selecting : %s ', err);
+                                    }
+
+                                    //req.session.groupTripPersonalInfo = true;
+                                    console.log('group travel was a success')
+
+
+                                });
 
                             }
 
-                            var query = connector.query('UPDATE group_info set ? WHERE travel_quotation_id = ? ', [data, req.session.id], function (err, rows) {
 
-                                if (err) {
-                                    console.log('Error Selecting : %s ', err);
-                                }
 
-                                req.session.groupTripPersonalInfo = true;
-
-                                res.redirect('/tripGroupDetails');
-
-                            });
-
-                            res.render('travel/single');
+                            res.redirect('/');
                         }else{
 
                             res.redirect('/');

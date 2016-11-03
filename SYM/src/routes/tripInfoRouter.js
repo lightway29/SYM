@@ -12,9 +12,22 @@ module.exports = function(router){
 
         if(req.session.tripInfo){
 
-            res.render('travel/single',{
-                travelType:req.params.id
-            });
+            if(req.params.id==1){
+
+                res.render('travel/single',{
+                    travelType:req.params.id
+                });
+            }else if(req.params.id==2) {
+
+                res.render('travel/group',{
+                    travelType:req.params.id
+                });
+            }else{
+
+                res.redirect('/');
+            }
+
+
         }else{
             res.redirect('/');
         }
@@ -31,20 +44,20 @@ module.exports = function(router){
 
         if(req.session.tripInfo){
 
-            if(validateFormTripInfo(req.body.travelType,req.body.dateOfDepartureSingleTrip,req.body.dateOfArrivalSingleTrip,req.body.country,req.body.medical,req.body.goods)){
+            req.getConnection(function (err, connector) {
 
-                req.getConnection(function (err, connector) {
+                if(input.travelType==1){
 
+                    if(validateFormTripInfo(req.body.travelType,req.body.dateOfDepartureSingleTrip,req.body.dateOfArrivalSingleTrip,req.body.country,req.body.medical,req.body.goods)) {
 
-                    if(input.travelType==1){
 
                         var data = {
 
-                            date_of_departure   : convertDate(input.dateOfDepartureSingleTrip),
-                            date_of_arrival     : convertDate(input.dateOfArrivalSingleTrip),
-                            travel_rigon        : input.country,
-                            medical             : input.medical,
-                            goods               : input.goods
+                            date_of_departure: convertDate(input.dateOfDepartureSingleTrip),
+                            date_of_arrival: convertDate(input.dateOfArrivalSingleTrip),
+                            travel_rigon: input.country,
+                            medical: input.medical,
+                            goods: input.goods
 
                         };
 
@@ -54,23 +67,55 @@ module.exports = function(router){
                                 console.log('Error Selecting : %s ', err);
                             }
 
-                            req.session.singleTripPersonalInfo  =   true;
+                            req.session.singleTripPersonalInfo = true;
 
                             res.redirect('/singleTripPersonalInfo');
 
                         });
-
-
                     }else{
-                        res.redirect('/singleTripPersonalInfo');
+
+                        console.log('Error validation trip-info single');
+                        res.redirect('/');
                     }
 
-                });
 
-            }else{
-                res.redirect('/');
-            }
+                }else if(input.travelType==2){
 
+                    if(validateFormTripInfoGroup(req.body.travelType,req.body.country,req.body.medical,req.body.goods)) {
+
+
+                        var data = {
+
+                            travel_rigon: input.country,
+                            medical: input.medical,
+                            goods: input.goods
+
+                        };
+
+                        var query = connector.query('UPDATE group_travel_quotation set ? WHERE travel_quotation_id = ? ', [data, req.session.id], function (err, rows) {
+
+                            if (err) {
+                                console.log('Error Selecting : %s ', err);
+                            }
+
+                            req.session.groupTripPersonalInfo = true;
+
+                            res.redirect('/tripGroupDetails');
+
+                        });
+                    }else{
+
+                        console.log('Error validation trip-info single');
+                        res.redirect('/');
+                    }
+
+
+                }else{
+                    console.log('Error @ travel type ');
+                    res.redirect('/');
+                }
+
+            });
 
         }else{
             res.redirect('/');
@@ -92,6 +137,19 @@ function validateFormTripInfo(TravelType, Departure, Arrival, Country, Medical, 
         validator.isNumeric(TravelType)
         &&  moment(Arrival, "DD/MM/YYYY", true).isValid()
         &&  moment(Departure, "DD/MM/YYYY", true).isValid()
+        &&  validator.isAlpha(Country)
+        &&  validator.isInt(Medical)
+        &&  (Medical>0)
+        &&  validator.isInt(Goods)
+        &&  (Goods>0)
+    );
+
+}
+
+function validateFormTripInfoGroup(TravelType, Country, Medical, Goods ) {
+
+    return (
+        validator.isNumeric(TravelType)
         &&  validator.isAlpha(Country)
         &&  validator.isInt(Medical)
         &&  (Medical>0)

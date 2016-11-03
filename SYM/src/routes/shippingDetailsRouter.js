@@ -12,13 +12,13 @@ module.exports = function(router){
                 var shipping_method_query = connector.query('SELECT * FROM shipping_method', function (err, shipping_method_rows) {
 
                     if (err) {
-                        console.log('Error Selecting : %s ', err);
+                        console.log('Error Selecting shipping_method_rows: %s ', err);
                     }
 
                     var shipping_query = connector.query('SELECT * FROM shipping WHERE quotation_id=?',req.session.id,  function (err, shipping_rows) {
 
                         if (err) {
-                            console.log('Error Selecting : %s ', err);
+                            console.log('Error Selecting shipping_rows: %s ', err);
                         }
 
                         res.render('vehicle/shipping_detail', {
@@ -34,6 +34,7 @@ module.exports = function(router){
                 //console.log(query.sql);
             });
         }else{
+            console.log("redirection error : shipping");
             res.redirect('/');
         }
 

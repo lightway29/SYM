@@ -101,8 +101,11 @@ module.exports = function(router){
                     var query = connector.query('UPDATE insurance_quotation set ? WHERE insurance_quotation_id = ? ', [data, req.session.id], function (err, rows) {
 
                         if (err) {
-                            console.log('Error Selecting : %s ', err);
+                            console.log('Error Updating further vehicle details : %s ', err);
                         }
+
+                        req.session.shippingDetails=true;
+
                         res.redirect('/shippingDetails');
 
                     });

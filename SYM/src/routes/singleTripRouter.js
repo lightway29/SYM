@@ -24,14 +24,16 @@ module.exports = function(router){
 
                     dob                 :   convertDate(input.dobTravel),
                     email               :   input.singleTravelEmail,
-                    travel_quotation_id :   single_travel_quotation.id
+                    travel_quotation_id :   single_travel_quotation.id,
+                    cover_type          :   input.typeOfCoverSingleTrip
 
                 };
 
                 var updateData={
 
                     dob                 :   convertDate(input.dobTravel),
-                    email               :   input.singleTravelEmail
+                    email               :   input.singleTravelEmail,
+                    cover_type          :   input.typeOfCoverSingleTrip
 
                 };
 

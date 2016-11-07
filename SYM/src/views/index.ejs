@@ -325,7 +325,7 @@
                                     </div>
                                     <!--==========================-->
                                     <div class="investment-bg growth">
-                                        <form name="frmInv" id="frmInv">
+                                        <form action="/investments" method="post" id="formFD">
                                             <div class="tabs">
                                                 <div class="tab investment_first">
                                                     <input type="radio" checked="" value="1" name="investmentType1" id="investmentType1">
@@ -341,7 +341,7 @@
                                                 <div class="input_field growth_f invForm">
                                                     <div class="lable cover"><img src="/static/images/Section_one_inner_tab_icon/Rs.png" /></div>
                                                     <div id="invLabel" class="info"><span class="b">Amount</span> </div>
-                                                    <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span></div>
+                                                    <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="FDAmount" name="FDAmount" required> <span class="fig_lbl none" id="inv_lbl"></span></div>
                                                     <div id="inverr" class="err"></div>
                                                 </div>
 
@@ -349,7 +349,7 @@
                                                     <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/period.png" /></div>
                                                     <div class="info"><span class="b">Period</span></div>
                                                     <div class="inputBox">
-                                                        <select id="invTerm" name="invTerm"><option value="">Years you want to invest</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                        <select id="FDtime" name="FDtime" required><option value="">Years you want to invest</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
                                                     </div>
                                                     <div id="invdoberr" class="err"></div>
                                                 </div>
@@ -358,9 +358,12 @@
                                                     <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/dob.png" /></div>
                                                     <div class="info"><span class="b">DOB</span></div>
                                                     <div class="inputBox dobBox">
-                                                        <select id="invTerm" name="invTerm"><option value="">Date</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
-                                                        <select id="invTerm" name="invTerm"><option value="">Month</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
-                                                        <select id="invTerm" name="invTerm"><option value="">Year</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                        <div class='input-group date' id='dobFixedDiposit' >
+                                                            <input id="dobFD" name="dobFD" type='text' class="field__input readonly" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="Start Date"  required  autocomplete="off" />
+                                                            <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                </span>
+                                                        </div>
                                                     </div>
                                                     <div class="err"></div>
                                                 </div>
@@ -368,14 +371,25 @@
                                                 <div class="input_field growth_f invForm">
                                                     <div class="lable cover"><img src="/static/images/Section_one_inner_tab_icon/NIC.png" /></div>
                                                     <div id="invLabel" class="info"><span class="b">NIC</span></div>
-                                                    <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="NIC" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span></div>
+                                                    <div class="inputBox"><input type="text" maxlength="11" value="" pattern="[0-9]{9}[vVxX]" placeholder="NIC" data-msg="Amount should be between " data-max="200000" data-min="10000" id="FDNIC" name="FDNIC" required> <span class="fig_lbl none" id="inv_lbl"></span></div>
                                                     <div id="inverr" class="err"></div>
                                                 </div>
                                                 <div class="lable need-amount"></div>
                                                 <input type="hidden" value="1" id="investmentType" name="investmentType">
                                                 <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
-                                                <div class="input_field pro"><a class="invproceed proceed" href="javascript:void(0);">Proceed</a><div class="process"><span class="loading style-1"></span><span>Please Wait...</span></div></div>
+
+
+                                                <div class="input_field pro">
+                                                    <button type="submit" class="proceed" id="btnSubmitTerm">Proceed</button>
+
+                                                    <div class="process">
+                                                        <span class="loading style-1"></span>
+                                                    </div>
+                                                    <div class="err"></div>
+                                                </div>
+
                                             </div>
+                                        </form>
                                             <div class="investmentBox_second" style="display: none;">
                                                 <div class="input_field growth_f invForm">
                                                     <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/Rs.png" /></div>
@@ -405,9 +419,19 @@
                                                 <div class="lable need-amount"></div>
                                                 <input type="hidden" value="1" id="investmentType" name="investmentType">
                                                 <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
-                                                <div class="input_field pro"><a class="invproceed proceed" href="javascript:void(0);">Proceed</a><div class="process"><span class="loading style-1"></span><span>Please Wait...</span></div></div>
+
+
+                                                <div class="input_field pro">
+                                                    <button type="submit" class="proceed" id="btnSubmitTerm">Proceed</button>
+
+                                                    <div class="process">
+                                                        <span class="loading style-1"></span>
+                                                    </div>
+                                                    <div class="err"></div>
+                                                </div>
+
                                             </div>
-                                        </form>
+
                                         <!--<div class="nextBox_sec">
                                         <a href="javascript:void(0);" class="back_to"><i class="fa fa-long-arrow-left"></i> Click Here for Previous Screen</a>
 
@@ -978,6 +1002,11 @@
             var LengthOfLease       =   document.getElementById("lengthOfLease");
             var LeaseVehicleStatus  =   document.getElementById("leaseVehicleStatus");
 
+            var FDAmount    =   document.getElementById("FDAmount");
+            var FDTime      =   document.getElementById("FDtime");
+            var dobFD       =   document.getElementById("dobFD");
+            var FDNIC       =   document.getElementById("FDNIC");
+
             var formV   =   document.getElementById("vForm");
             var form3w  =   document.getElementById("vForm3");
 
@@ -988,6 +1017,7 @@
             var formHousingLoan     =   document.getElementById("formHousingLoan");
             var formVehicaleLease   =   document.getElementById("formVehicaleLease");
 
+            var formFD  =   document.getElementById("formFD");
 
             formV.onsubmit  =   validateFormCar;
             form3w.onsubmit =   validateForm3W;
@@ -997,6 +1027,29 @@
 
             formHousingLoan.onsubmit    =   validationFormHousingLoan;
             formVehicaleLease.onsubmit  =   validationFormVehicaleLease;
+
+            formFD.onsubmit  =  validationformFD;
+
+
+
+
+
+            function validationformFD() {
+
+                var idPattern=/^[0-9]{9}[vVxX]$/;
+
+                return (validator.isNumeric(FDAmount.value)
+                        && (+FDAmount.value>0)
+                        && validator.isNumeric(FDTime.value)
+                        && (+FDTime.value>0)
+                        && moment(dobFD.value, "DD/MM/YYYY", true).isValid()
+                        && strMatch(FDNIC.value,idPattern)
+
+                );
+
+
+
+            }
 
 
 

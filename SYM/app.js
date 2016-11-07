@@ -132,6 +132,16 @@ var vehicleLeaseRouter=express.Router();
 require('./src/routes/vehicleLeaseRouter.js')(vehicleLeaseRouter);
 app.use('/vehicleLease',vehicleLeaseRouter);
 
+
+/** Investments**/
+
+var investmentsRouter=express.Router();
+require('./src/routes/investmentsRouter.js')(investmentsRouter);
+app.use('/investments',investmentsRouter);
+
+
+
+
 app.listen(port, function (err) {
     console.log('Running server on port ' + port);
 });

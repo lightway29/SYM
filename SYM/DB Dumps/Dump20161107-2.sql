@@ -16,6 +16,41 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `FD_quotation`
+--
+
+DROP TABLE IF EXISTS `FD_quotation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FD_quotation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `FD_quotation_id` varchar(45) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `nic` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `mobile` varchar(45) DEFAULT NULL,
+  `profession` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`FD_quotation_id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FD_quotation`
+--
+
+LOCK TABLES `FD_quotation` WRITE;
+/*!40000 ALTER TABLE `FD_quotation` DISABLE KEYS */;
+INSERT INTO `FD_quotation` VALUES (1,'B76VHmEpBYFaHs0nGlo-Yfa1zZKvJgjp',1000,5,'2016-11-07','900074468v','Mr','rrrugjhl','cghj','hama@gmail.com','0123456789','htygj');
+/*!40000 ALTER TABLE `FD_quotation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `aditional_covers`
 --
 
@@ -982,6 +1017,41 @@ LOCK TABLES `variable_value` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `vehicle_lease_quotation`
+--
+
+DROP TABLE IF EXISTS `vehicle_lease_quotation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vehicle_lease_quotation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lease_quotation_id` varchar(45) NOT NULL,
+  `vehicle_Value` double DEFAULT NULL,
+  `down_payment` double DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `mobile` varchar(45) DEFAULT NULL,
+  `profession` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`lease_quotation_id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vehicle_lease_quotation`
+--
+
+LOCK TABLES `vehicle_lease_quotation` WRITE;
+/*!40000 ALTER TABLE `vehicle_lease_quotation` DISABLE KEYS */;
+INSERT INTO `vehicle_lease_quotation` VALUES (2,'6-H5RyIStmx2tW2gdmnXLDKJk5LjQJzG',1000,100,7,'registered','Mr','chaminda','fernando','chathu.gg@hh.co.com','0123456789','editor'),(1,'Zop7hOXeLSiOAzZuS5v8jGUOyzeVspl2',10000,1000,6,'registered',NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `vehicle_lease_quotation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `vehicle_make`
 --
 
@@ -1091,4 +1161,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-07 10:23:41
+-- Dump completed on 2016-11-07 17:35:39

@@ -256,12 +256,12 @@
                                             </div>
                                             <div class="termBox_second" style="display: none;">
 
-                                                <form>
+                                                <form action="/vehicleLease" method="post" id="formVehicaleLease">
 
                                                     <div class="input_field growth_f invForm">
                                                         <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/value_vehicale.png" /></div>
                                                         <div id="invLabel" class="info"><span class="b">Vehicle Value</span> </div>
-                                                        <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span></div>
+                                                        <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="vehicaleValueLease" name="vehicaleValueLease" required> <span class="fig_lbl none" id="inv_lbl"></span></div>
                                                         <div id="inverr" class="err"></div>
                                                     </div>
 
@@ -269,7 +269,7 @@
                                                         <div class="lable cover"><img src="/static/images/Section_one_inner_tab_icon/down_payment.png" /></div>
                                                         <div id="invLabel" class="info"><span class="b">Down Payment</span> </div>
                                                         <div class="inputBox has-tooltip">
-                                                            <input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
+                                                            <input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="downPaymentLease" name="downPaymentLease" required> <span class="fig_lbl none" id="inv_lbl"></span>
                                                             <span class="tooltip">
                                                                 <span data-cvv-tooltip="unknown">
                                                                     30% of value
@@ -283,7 +283,21 @@
                                                         <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/length_lease.png" /></div>
                                                         <div class="info"><span class="b">Length of Lease</span></div>
                                                         <div class="inputBox">
-                                                            <select id="invTerm" name="invTerm"><option value="">Months</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                            <select id="lengthOfLease" name="lengthOfLease" required><option value="">Months</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                        </div>
+                                                        <div id="invdoberr" class="err"></div>
+                                                    </div>
+
+
+                                                    <div class="input_field invForm" id="invTermSelect">
+                                                        <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/length_lease.png" /></div>
+                                                        <div class="info"><span class="b">Vehicle Reg. Status</span></div>
+                                                        <div class="inputBox">
+                                                            <select id="leaseVehicleStatus" name="leaseVehicleStatus" required>
+                                                                <option value="">Status</option>
+                                                                <option value="registered">Registered</option>
+                                                                <option value="unregistered">Unregistered</option>
+                                                            </select>
                                                         </div>
                                                         <div id="invdoberr" class="err"></div>
                                                     </div>
@@ -292,7 +306,17 @@
                                                     <div class="lable need-amount"></div>
                                                     <input type="hidden" value="1" id="investmentType" name="investmentType">
                                                     <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
-                                                    <div class="input_field pro"><a class="invproceed proceed" href="javascript:void(0);">Proceed</a><div class="process"><span class="loading style-1"></span><span>Please Wait...</span></div></div>
+
+
+                                                    <div class="input_field pro">
+                                                        <button type="submit" class="proceed" id="btnSubmitTerm">Proceed</button>
+
+                                                        <div class="process">
+                                                            <span class="loading style-1"></span>
+                                                        </div>
+                                                        <div class="err"></div>
+                                                    </div>
+
                                                 </form>
 
                                             </div>
@@ -949,6 +973,11 @@
             var LoanPeriod      =   document.getElementById("loanPeriodHousing");
             var RateType        =   document.getElementById("rateType");
 
+            var VehicaleValueLease  =   document.getElementById("vehicaleValueLease");
+            var DownPaymentLease    =   document.getElementById("downPaymentLease");
+            var LengthOfLease       =   document.getElementById("lengthOfLease");
+            var LeaseVehicleStatus  =   document.getElementById("leaseVehicleStatus");
+
             var formV   =   document.getElementById("vForm");
             var form3w  =   document.getElementById("vForm3");
 
@@ -956,7 +985,9 @@
             var formTravelGroup     =   document.getElementById("validateFormGroupTravel");
 
 
-            var formHousingLoan =   document.getElementById("formHousingLoan");
+            var formHousingLoan     =   document.getElementById("formHousingLoan");
+            var formVehicaleLease   =   document.getElementById("formVehicaleLease");
+
 
             formV.onsubmit  =   validateFormCar;
             form3w.onsubmit =   validateForm3W;
@@ -965,7 +996,26 @@
             formTravelGroup.onsubmit    =   validateFormGroupTravel;
 
             formHousingLoan.onsubmit    =   validationFormHousingLoan;
+            formVehicaleLease.onsubmit  =   validationFormVehicaleLease;
 
+
+
+            function validationFormVehicaleLease() {
+
+                return (validator.isNumeric(VehicaleValueLease.value)
+                        && (+VehicaleValueLease.value>0)
+                        && validator.isNumeric(DownPaymentLease.value)
+                        && (+DownPaymentLease.value>0)
+                        && (+DownPaymentLease.value < +VehicaleValueLease.value)
+                        && validator.isNumeric(LengthOfLease.value)
+                        && (+LengthOfLease.value>0)
+                        && ((LeaseVehicleStatus.value=="registered") || (LeaseVehicleStatus.value=="unregistered"))
+
+                );
+
+
+
+            }
 
 
             function validationFormHousingLoan() {

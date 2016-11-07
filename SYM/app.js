@@ -128,6 +128,9 @@ var housingLoanRouter=express.Router();
 require('./src/routes/housingLoanRouter.js')(housingLoanRouter);
 app.use('/housingLoan',housingLoanRouter);
 
+var vehicleLeaseRouter=express.Router();
+require('./src/routes/vehicleLeaseRouter.js')(vehicleLeaseRouter);
+app.use('/vehicleLease',vehicleLeaseRouter);
 
 app.listen(port, function (err) {
     console.log('Running server on port ' + port);

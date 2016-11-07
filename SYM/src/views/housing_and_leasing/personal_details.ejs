@@ -24,7 +24,7 @@
     </ul>
 
     <div id="personal_detail" class="vehicle_detail_bg" >
-        <form  action="/personalDetails" method="post" onsubmit="return validateFormPersonalV()">
+        <form  action="" method="post" onsubmit="return validateFormPersonalHousing()">
             <div class="row">
                 <div class=" field--required field--three-eights field--show-floating-label" style="padding-bottom: 10px">
                     <div class="field__input-wrapper field__input-wrapper--select">
@@ -64,12 +64,11 @@
             </div>
             <div class="row">
                 <div id="showniclabel" class="field__input-wrapper">
-                    <label for="checkout_nic" class="field__label">NIC</label>
-                    <input id="nic" name="nic" type="text" placeholder="NIC" pattern="[0-9]{9}[vVxX]" class="field__input" required/>
+                    <label for="checkout_nic" class="field__label">Profession</label>
+                    <input id="profession" name="profession" type="text" placeholder="Profession"  class="field__input" required/>
                 </div>
             </div>
             <div class="row insuranceButtonMarginTop">
-                <input type="hidden" value="<%= hidden %>" name="insurance_quotation">
                 <div style="float: left;width: 100%;" class="row step__footer">
 
                     <button class="step__footer__continue-btn btn " type="submit" name="button">

@@ -264,7 +264,27 @@
 
     }
 
+    function validateFormPersonalHousing() {
 
+        var Title       =   document.getElementById('title');
+        var FirstName   =   document.getElementById('firstname');
+        var LastName    =   document.getElementById("lastname");
+        var Email       =   document.getElementById("email");
+        var Mobile      =   document.getElementById("mobile");
+        var Profession  =   document.getElementById("profession");
+
+        var phonePattern=/^\d{10}$/;
+
+        return (
+                validator.isAlpha(Title.value)
+                &&  validator.isAlpha(FirstName.value)
+                &&  validator.isAlpha(LastName.value)
+                &&  validator.isEmail(Email.value)
+                &&  strMatch(Mobile.value,phonePattern)
+                &&  validator.isAlpha(Profession.value)
+        );
+
+    }
 
 
     function validateFormGroupTravelDetails() {

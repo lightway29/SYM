@@ -122,6 +122,13 @@ require('./src/routes/tripGroupDetailsRouter.js')(tripGroupDetailsRouter);
 app.use('/tripGroupDetails',tripGroupDetailsRouter);
 
 
+/** Loan/Lease **/
+
+var housingLoanRouter=express.Router();
+require('./src/routes/housingLoanRouter.js')(housingLoanRouter);
+app.use('/housingLoan',housingLoanRouter);
+
+
 app.listen(port, function (err) {
     console.log('Running server on port ' + port);
 });

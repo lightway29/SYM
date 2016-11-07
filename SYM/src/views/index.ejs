@@ -185,7 +185,7 @@
 
                                     <!--==========================-->
                                     <div class="term-bg">
-                                        <form name="frmTerm" id="frmTerm">
+
                                             <div class="tabs">
                                                 <div class="tab term_first">
                                                     <input type="radio" checked="" value="1" name="tab-group-1" id="tab-1">
@@ -198,106 +198,106 @@
                                                 </div>
                                             </div>
                                             <div class="termBox_first">
-                                                <div class="input_field growth_f invForm">
-                                                    <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/house_hold_income.png" /></div>
-                                                    <div id="invLabel" class="info"><span class="b">Household Income</span> </div>
-                                                    <div class="inputBox householdIncome">
-                                                        <input type="text" maxlength="11" value="" placeholder="Income" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
-                                                        <select id="invTerm" name="invTerm"><option value="">Per Month</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
 
+                                                <form action="/housingLoan" method="post" id="formHousingLoan">
+
+                                                    <div class="input_field growth_f invForm">
+                                                        <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/house_hold_income.png" /></div>
+                                                        <div id="invLabel" class="info"><span class="b">Property Value</span> </div>
+                                                        <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="housingValue" name="housingValue"> <span class="fig_lbl none" id="inv_lbl"></span></div>
+                                                        <div id="inverr" class="err"></div>
                                                     </div>
-                                                    <div id="inverr" class="err"></div>
-                                                </div>
 
-                                                <div class="input_field invForm" id="invTermSelect">
-                                                    <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/dependants.png" /></div>
-                                                    <div class="info"><span class="b">No Of Dependants</span></div>
-                                                    <div class="inputBox">
-                                                        <select id="invTerm" name="invTerm"><option value="">No Of Dependants</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+
+                                                    <div class="input_field growth_f invForm">
+                                                        <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/living_expenses.png" /></div>
+                                                        <div id="invLabel" class="info"><span class="b">Requesting Amount</span> </div>
+                                                        <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="reqLoanAmount" name="reqLoanAmount"> <span class="fig_lbl none" id="inv_lbl"></span></div>
+                                                        <div id="inverr" class="err"></div>
                                                     </div>
-                                                    <div id="invdoberr" class="err"></div>
-                                                </div>
 
-                                                <div class="input_field growth_f invForm">
-                                                    <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/living_expenses.png" /></div>
-                                                    <div id="invLabel" class="info"><span class="b">Living Expenses</span></div>
-                                                    <div class="inputBox householdIncome">
-                                                        <input type="text" maxlength="11" value="" placeholder="Income" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
-                                                        <select id="invTerm" name="invTerm"><option value="">Per Month</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
-
+                                                    <div class="input_field invForm" id="invTermSelect">
+                                                        <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/dependants.png" /></div>
+                                                        <div class="info"><span class="b">Loan Duration</span></div>
+                                                        <div class="inputBox">
+                                                            <select id="loanPeriodHousing" name="loanPeriodHousing"><option value="">Loan Period (in years)</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                        </div>
+                                                        <div id="invdoberr" class="err"></div>
                                                     </div>
-                                                    <div id="inverr" class="err"></div>
-                                                </div>
 
 
-                                                <div class="input_field growth_f invForm">
-                                                    <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/living_expenses.png" /></div>
-                                                    <div id="invLabel" class="info"><span class="b">Living Expenses</span></div>
-                                                    <div class="inputBox householdIncome">
-                                                        <input type="text" maxlength="11" value="" placeholder="Income" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
-                                                        <select id="invTerm" name="invTerm"><option value="">Per Month</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
-
+                                                    <div class="input_field invForm" id="invTermSelect">
+                                                        <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/dependants.png" /></div>
+                                                        <div class="info"><span class="b">Defined Rate</span></div>
+                                                        <div class="inputBox">
+                                                            <select id="rateType" name="rateType">
+                                                                <option value="">Select a rate option</option>
+                                                                <option value="fixed">Fixed</option>
+                                                                <option value="floating">Floating</option>
+                                                            </select>
+                                                        </div>
+                                                        <div id="invdoberr" class="err"></div>
                                                     </div>
-                                                    <div id="inverr" class="err"></div>
-                                                </div>
 
+                                                    <div class="lable need-amount"></div>
+                                                    <input type="hidden" value="1" id="investmentType" name="investmentType">
+                                                    <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
 
-                                                <div class="input_field growth_f invForm">
-                                                    <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/living_expenses.png" /></div>
-                                                    <div id="invLabel" class="info"><span class="b">Living Expenses</span></div>
-                                                    <div class="inputBox householdIncome">
-                                                        <input type="text" maxlength="11" value="" placeholder="Income" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
-                                                        <select id="invTerm" name="invTerm"><option value="">Per Month</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                    <div class="input_field pro">
+                                                        <button type="submit" class="proceed" id="btnSubmitTerm">Proceed</button>
 
+                                                        <div class="process">
+                                                            <span class="loading style-1"></span>
+                                                        </div>
+                                                        <div class="err"></div>
                                                     </div>
-                                                    <div id="inverr" class="err"></div>
-                                                </div>
 
-
-
-                                                <div class="lable need-amount"></div>
-                                                <input type="hidden" value="1" id="investmentType" name="investmentType">
-                                                <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
-                                                <div class="input_field pro"><a class="invproceed proceed" href="javascript:void(0);">Proceed</a><div class="process"><span class="loading style-1"></span><span>Please Wait...</span></div></div>
+                                                </form>
                                             </div>
                                             <div class="termBox_second" style="display: none;">
-                                                <div class="input_field growth_f invForm">
-                                                    <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/value_vehicale.png" /></div>
-                                                    <div id="invLabel" class="info"><span class="b">Vehicle Value</span> </div>
-                                                    <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span></div>
-                                                    <div id="inverr" class="err"></div>
-                                                </div>
 
-                                                <div class="input_field growth_f invForm">
-                                                    <div class="lable cover"><img src="/static/images/Section_one_inner_tab_icon/down_payment.png" /></div>
-                                                    <div id="invLabel" class="info"><span class="b">Down Payment</span> </div>
-                                                    <div class="inputBox has-tooltip">
-                                                        <input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
-                                                        <span class="tooltip">
-                                                            <span data-cvv-tooltip="unknown">
-                                                                30% of value
+                                                <form>
+
+                                                    <div class="input_field growth_f invForm">
+                                                        <div class="lable cover" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/value_vehicale.png" /></div>
+                                                        <div id="invLabel" class="info"><span class="b">Vehicle Value</span> </div>
+                                                        <div class="inputBox"><input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span></div>
+                                                        <div id="inverr" class="err"></div>
+                                                    </div>
+
+                                                    <div class="input_field growth_f invForm">
+                                                        <div class="lable cover"><img src="/static/images/Section_one_inner_tab_icon/down_payment.png" /></div>
+                                                        <div id="invLabel" class="info"><span class="b">Down Payment</span> </div>
+                                                        <div class="inputBox has-tooltip">
+                                                            <input type="text" maxlength="11" value="" placeholder="Amount" data-msg="Amount should be between " data-max="200000" data-min="10000" id="invamount" name="invamount"> <span class="fig_lbl none" id="inv_lbl"></span>
+                                                            <span class="tooltip">
+                                                                <span data-cvv-tooltip="unknown">
+                                                                    30% of value
+                                                                </span>
                                                             </span>
-                                                        </span>
+                                                        </div>
+                                                        <div id="inverr" class="err"></div>
                                                     </div>
-                                                    <div id="inverr" class="err"></div>
-                                                </div>
 
-                                                <div class="input_field invForm" id="invTermSelect">
-                                                    <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/length_lease.png" /></div>
-                                                    <div class="info"><span class="b">Length of Lease</span></div>
-                                                    <div class="inputBox">
-                                                        <select id="invTerm" name="invTerm"><option value="">Months</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                    <div class="input_field invForm" id="invTermSelect">
+                                                        <div class="lable dob" style="vertical-align: middle;"><img src="/static/images/Section_one_inner_tab_icon/length_lease.png" /></div>
+                                                        <div class="info"><span class="b">Length of Lease</span></div>
+                                                        <div class="inputBox">
+                                                            <select id="invTerm" name="invTerm"><option value="">Months</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select>
+                                                        </div>
+                                                        <div id="invdoberr" class="err"></div>
                                                     </div>
-                                                    <div id="invdoberr" class="err"></div>
-                                                </div>
 
 
-                                                <div class="lable need-amount"></div>
-                                                <input type="hidden" value="1" id="investmentType" name="investmentType">
-                                                <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
-                                                <div class="input_field pro"><a class="invproceed proceed" href="javascript:void(0);">Proceed</a><div class="process"><span class="loading style-1"></span><span>Please Wait...</span></div></div>
+                                                    <div class="lable need-amount"></div>
+                                                    <input type="hidden" value="1" id="investmentType" name="investmentType">
+                                                    <input type="hidden" value="" id="invneedgrowthamt" name="invneedgrowthamt">
+                                                    <div class="input_field pro"><a class="invproceed proceed" href="javascript:void(0);">Proceed</a><div class="process"><span class="loading style-1"></span><span>Please Wait...</span></div></div>
+                                                </form>
+
                                             </div>
-                                        </form>
+
+
                                     </div>
                                     <!--==========================-->
                                     <div class="investment-bg growth">
@@ -939,10 +939,15 @@
             var SingleTravelEmail       =   document.getElementById("singleTravelEmail");
             var SingleTravelTypeOfCover =   document.getElementById("typeOfCover");
 
-            var TravelGroupNumber=document.getElementById("travelGroupNumber");
-            var EmailGroup=document.getElementById("emailGroup");
-            var Startdate=document.getElementById("startdate");
-            var Enddate=document.getElementById("enddate");
+            var TravelGroupNumber   =   document.getElementById("travelGroupNumber");
+            var EmailGroup          =   document.getElementById("emailGroup");
+            var Startdate           =   document.getElementById("startdate");
+            var Enddate             =   document.getElementById("enddate");
+
+            var HousingValue    =   document.getElementById("housingValue");
+            var ReqLoanAmount   =   document.getElementById("reqLoanAmount");
+            var LoanPeriod      =   document.getElementById("loanPeriodHousing");
+            var RateType        =   document.getElementById("rateType");
 
             var formV   =   document.getElementById("vForm");
             var form3w  =   document.getElementById("vForm3");
@@ -950,14 +955,31 @@
             var formTravelSingle    =   document.getElementById("formTravelSingle");
             var formTravelGroup     =   document.getElementById("validateFormGroupTravel");
 
+
+            var formHousingLoan =   document.getElementById("formHousingLoan");
+
             formV.onsubmit  =   validateFormCar;
             form3w.onsubmit =   validateForm3W;
 
             formTravelSingle.onsubmit   =   validateFormSingleTravel;
             formTravelGroup.onsubmit    =   validateFormGroupTravel;
 
+            formHousingLoan.onsubmit    =   validationFormHousingLoan;
 
 
+
+            function validationFormHousingLoan() {
+
+                return (validator.isNumeric(HousingValue.value)
+                        && validator.isNumeric(ReqLoanAmount.value)
+                        && (+ReqLoanAmount.value < +HousingValue.value)
+                        && validator.isNumeric(LoanPeriod.value)
+                        && (+LoanPeriod.value>0)
+                        && ((RateType.value=="fixed") || (RateType.value=="floating"))
+
+                );
+
+            }
 
             function validateFormSingleTravel() {
 

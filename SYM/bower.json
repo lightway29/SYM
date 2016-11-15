@@ -19,7 +19,8 @@
     "font-awesome": "^4.6.3",
     "validator-js": "^6.0.0",
     "bootstrap-datepicker": "^1.6.4",
-    "payform": "^1.2.0"
+    "payform": "^1.2.0",
+    "ihover": "^1.0.0"
   },
   "overrides": {
     "bootstrap": {

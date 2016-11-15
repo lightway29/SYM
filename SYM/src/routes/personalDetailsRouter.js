@@ -12,12 +12,30 @@ module.exports = function(router){
     router.get('/', function(req, res){
 
         if(req.session.vehiclePersonal && req.session.vehicleDetails){
-            res.render('vehicle/personal_details',{
-                form:'personalDetails',
-                hidden: req.session.id
+
+            req.getConnection(function (err, connector) {
+
+                var query = connector.query('SELECT * FROM prefix_honor', function (err, rows) {
+
+                    if (err) {
+                        console.log('Error Selecting : %s ', err);
+                    }
+
+                    res.render('vehicle/personal_details',{
+                        form:'personalDetails',
+                        hidden: req.session.id,
+                        prefix: rows
+                    });
+
+                });
             });
+
+
         }else {
-            res.redirect('/');
+
+                res.redirect('/');
+
+
         }
 
 
@@ -49,9 +67,11 @@ module.exports = function(router){
                             console.log('Error Selecting : %s ', err);
                         }
 
-                        req.session.vehicleInsurance=true;
 
-                        res.redirect('/insuranceDetails');
+                            req.session.vehicleInsurance=true;
+
+                            res.redirect('/insuranceDetails');
+
 
                     });
 
@@ -71,6 +91,19 @@ module.exports = function(router){
             res.redirect('/');
         }
 
+
+    });
+
+    router.get('/getPreFix', function(req, res){
+
+        req.getConnection(function (err, connector) {
+            var query = connector.query('SELECT * FROM prefix_honor', function (err, rows) {
+                if(err){
+                    console.log(err);
+                }
+                return res.send(rows);
+            });
+        });
 
     });
 

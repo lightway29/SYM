@@ -15,6 +15,11 @@ table {
 fieldset,img {
     border: 0;
 }
+.hoverDiv:hover {
+	background: #C0C0C0;
+	color: white;
+}
+
 address,caption,cite,code,dfn,em,strong,th,var {
     font-weight: normal;
     font-style: normal;

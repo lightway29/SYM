@@ -1,0 +1,301 @@
+<%- layout('/form') %>
+
+
+<div class="insurance_info topMainPadding">
+    <%- treeData %>
+
+
+
+
+    <div id="quotation_detail" class="vehicle_detail_bg" >
+    <form id="quotation_detail_id" name="personal_detail" action="">
+        <div class="row quoteColor">
+            <div class="col-lg-3 quoteColor_wrapper">
+                <select name="">
+                    <option selected="">Select Insurance ... </option>
+                    <% if(typeof companies !== 'undefined'){ %>
+                    <% for(var j = 0; j < companies.length; j++) { %>
+                    <option value="<%= companies[j].id %>"><%= companies[j].insurance_name %></option>
+                    <% } %>
+                    <% } %>
+
+                </select>
+            </div>
+            <% for(var q = 0 ; q < graphicInfo.length; q++) { %>
+
+            <div class="col-lg-1">
+                        <span id="credit_card_verification_value_tooltip" tabindex="0"
+                              class="field__icon icon icon--question has-tooltip" role="tooltip">
+                            <img src="/static/images/<%=graphicInfo[q].graphic_info %>"/>
+                            <span class="tooltip">
+                                <span data-cvv-tooltip="unknown">
+                                    <%=graphicInfo[q].tooltip_msg %>
+                                </span>
+                                <span data-cvv-tooltip="amex" class="hidden">
+                                    4-digit security code on the front of your card
+                                </span>
+                                <span data-cvv-tooltip="other" class="hidden">
+                                    3-digit security code on the back of your card
+                                </span>
+                            </span>
+                        </span>
+            </div>
+
+            <% } %>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+
+<%
+
+        for(var i=1;i<=Object.keys(tableData).length;i++){
+%>
+
+            <div class="hoverDiv row quoteColor table-align-verticle" onclick="location.href='<%= tableData[i].link%>/<%= tableData[i].id%>';">
+                <div class="col-lg-3">
+                    <img src="/static/images/<%='aia-logo.png'  %>" width="100%"/>
+                </div>
+                <div class="col-lg-1 ">
+                    <%=tableData[i].item1 %>
+                </div>
+                <div class="col-lg-1">
+                    <%=tableData[i].item2 %>
+                </div>
+                <div class="col-lg-1">
+                    <%=tableData[i].item3 %>
+                </div>
+                <div class="col-lg-1">
+                    <%=tableData[i].item4 %>
+                </div>
+                <div class="col-lg-1">
+                    <%=tableData[i].item5 %>
+                </div>
+                <div class="col-lg-2">
+                    <a id="nextPage" class="nextPage" >
+
+                        <div class="Plan-cardRate-fixed">LKR <%= tableData[i].value %></div>
+                    </a>
+                    <div class="successful_charge">Per successful card charge</div>
+                </div>
+            </div>
+
+<%
+        }
+
+%>
+
+
+
+
+
+
+        <div class="row quoteColor table-align-verticle selected has-tooltip">
+            <div class="col-lg-3">
+                <img src="../../images/aia-logo.png" width="100%"/>
+            </div>
+            <div class="col-lg-1">
+                Free
+            </div>
+            <div class="col-lg-1">
+                80%
+            </div>
+            <div class="col-lg-1">
+                Upto 100,000
+            </div>
+            <div class="col-lg-1">
+                Upto 3000
+            </div>
+            <div class="col-lg-1">
+                4 People 100,000
+            </div>
+            <div class="col-lg-2">
+                <a id="nextPage" class="nextPage" href="javascript:showVehicleDetail()">
+
+                    <div class="Plan-cardRate-fixed">25,000</div>
+                </a>
+                <div class="successful_charge">Per successful card charge</div>
+            </div>
+            <span class="tooltip">
+                            <span data-cvv-tooltip="unknown">
+                                Save Your Monkey Recommendation. Enjoy 15% OFF Vehicle Ins. & 10% OFF Life Ins.
+                            </span>
+                        </span>
+        </div>
+        <div class="row quoteColor table-align-verticle">
+            <div class="col-lg-3">
+                <img src="../../images/aia-logo.png" width="100%"/>
+            </div>
+            <div class="col-lg-1">
+                Free
+            </div>
+            <div class="col-lg-1">
+                50%
+            </div>
+            <div class="col-lg-1">
+                Upto 100,000
+            </div>
+            <div class="col-lg-1">
+                Upto 3000
+            </div>
+            <div class="col-lg-1">
+                4 People 100,000
+            </div>
+            <div class="col-lg-2">
+                <a id="nextPage" class="nextPage" href="javascript:showVehicleDetail()">
+
+                    <div class="Plan-cardRate-fixed">11,7000</div>
+                </a>
+                <div class="successful_charge">Per successful card charge</div>
+            </div>
+        </div>
+        <div class="row quoteColor table-align-verticle">
+            <div class="col-lg-3">
+                <img src="../../images/aia-logo.png" width="100%"/>
+            </div>
+            <div class="col-lg-1">
+                Free
+            </div>
+            <div class="col-lg-1">
+                80%
+            </div>
+            <div class="col-lg-1">
+                Upto 100,000
+            </div>
+            <div class="col-lg-1">
+                Upto 3000
+            </div>
+            <div class="col-lg-1">
+                4 People 100,000
+            </div>
+            <div class="col-lg-2">
+                <a id="nextPage" class="nextPage" href="javascript:showVehicleDetail()">
+
+                    <div class="Plan-cardRate-fixed">22,000</div>
+                </a>
+                <div class="successful_charge">Per successful card charge</div>
+            </div>
+        </div>
+        <div class="row quoteColor table-align-verticle">
+            <div class="col-lg-3">
+                <img src="../../images/aia-logo.png" width="100%"/>
+            </div>
+            <div class="col-lg-1">
+                Free
+            </div>
+            <div class="col-lg-1">
+                50%
+            </div>
+            <div class="col-lg-1">
+                Upto 100,000
+            </div>
+            <div class="col-lg-1">
+                Upto 3000
+            </div>
+            <div class="col-lg-1">
+                4 People 100,000
+            </div>
+            <div class="col-lg-2">
+                <a id="nextPage" class="nextPage" href="javascript:showVehicleDetail()">
+
+                    <div class="Plan-cardRate-fixed">14,000</div>
+                </a>
+                <div class="successful_charge">Per successful card charge</div>
+            </div>
+        </div>
+        <div class="row insuranceButtonMarginTop">
+            <div style="float: left;width: 100%;" class="row step__footer">
+                <a class="step__footer__previous-link" href="insurance.html">
+                    <svg viewBox="0 0 6.7 11.3" height="11.3" width="6.7" xmlns="http://www.w3.org/2000/svg" class="previous-link__icon icon--chevron icon">
+                        <path d="M6.7 1.1l-1-1.1-4.6 4.6-1.1 1.1 1.1 1 4.6 4.6 1-1-4.6-4.6z"/>
+                    </svg>
+                    Return to Previous Page
+                </a>
+            </div>
+        </div>
+
+        <!--                    <div class="row">
+                                <h3 class="uk-h3">Payment Method</h3>
+                                <h4 class="uk-h4">All transactions are secure and encrypted Credit Card information is never stored.</h4>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <div class="row">
+                                            <img src="../../images/credit.png" width="100%"/>
+                                            <a id="nextPage" class="nextPage" href="javascript:showVehicleDetail()">
+
+                                                <div class="Plan-cardRate-fixed"> 30¢ </div>
+                                            </a>
+                                            <div class="successful_charge">Per successful card charge</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <h4>Credit & debit cards</h4>
+                                            <div>
+                                                We charge a percentage-based fee each time you accept a credit or debit card payment. The price is the same for all major cards, including American Express. There’s no additional fee for international cards, failed charges, or refunds.
+                                            </div>
+                                            <ul class="Plan-list">
+                                                <li class="Plan-listItem">
+                                                    <img width="26" height="26" alt="fees icon" src="../../images/plan-star.svg">
+                                                    No setup, monthly, or hidden fees
+                                                </li>
+                                                <li class="Plan-listItem">
+                                                    <img width="26" height="26" alt="pay icon" src="../../images/plan-receive.svg">
+                                                    Pay only for what you use
+                                                </li>
+                                                <li class="Plan-listItem">
+                                                    <img width="26" height="26" alt="reporting icon" src="../../images/plan-measure.svg">
+                                                    Real-time fee reporting
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <div class="row">
+                                            <img src="../../images/credit.png" width="100%"/>
+                                            <a id="nextPage" class="nextPage" href="javascript:showVehicleDetail()">
+
+                                                <div class="Plan-cardRate-fixed"> 30¢ </div>
+                                            </a>
+                                            <div class="successful_charge">Per successful card charge</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <h4>ACH and Bitcoin payments</h4>
+                                            <div>
+                                                ACH and Bitcoin fees are capped at $5—payments above $625 cost $5. We also provide tools to verify customers’ bank accounts at no additional cost. We charge $4 for failed ACH payments.
+                                            </div>
+                                            <ul class="Plan-list">
+                                                <li class="Plan-listItem">
+                                                    <img width="26" height="26" alt="fees icon" src="../../images/plan-star.svg">
+                                                    No setup, monthly, or hidden fees
+                                                </li>
+                                                <li class="Plan-listItem">
+                                                    <img width="26" height="26" alt="pay icon" src="../../images/plan-receive.svg">
+                                                    Pay only for what you use
+                                                </li>
+                                                <li class="Plan-listItem">
+                                                    <img width="26" height="26" alt="reporting icon" src="../../images/plan-measure.svg">
+                                                    Real-time fee reporting
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="text-align: center;">
+                                    <button class="step__footer__continue-btn btnnew " type="submit" name="button">
+                                        <span class="btn__content">Load More</span>
+                                    </button>
+                                </div>
+                            </div>-->
+    </form>
+</div>
+
+</div>

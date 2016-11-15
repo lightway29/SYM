@@ -3,14 +3,14 @@
 
 <div class="insurance_info topMainPadding">
     <div class="insurance_text">
-        Car Insurance
+        Request Form
     </div>
     <ul class="breadcrumbc">
-        <li class="breadcrumb__item breadcrumb__item--current">
+        <li class="breadcrumb__item breadcrumb__item--blank">
             Vehicle Details
         </li>
-        <li class="breadcrumb__item breadcrumb__item--blank">
-            Personal Data
+        <li class="breadcrumb__item breadcrumb__item--current" style="color: green">
+            Personal Info
         </li>
         <li class="breadcrumb__item breadcrumb__item--blank">
             Insurance Info
@@ -31,9 +31,9 @@
                         <label for="checkout_shipping_address_country" class="field__label">Title</label>
                         <select name="title" id="title" class="field__input field__input--select" required >
                             <option value="">Select Title</option>
-                            <option value="Mr">Mr</option>
-                            <option value="Mrs">Mrs</option>
-                            <option value="Miss">Miss</option>
+                            <% for(var x = 0; x < prefix.length; x++) { %>
+                            <option value="<%= prefix[x].name %>"><%= prefix[x].name %></option>
+                            <% } %>
                         </select>
                     </div>
                 </div>

@@ -11,6 +11,9 @@ module.exports = function(router){
                     , function (err, insuranceQuotationRow) {
 
                         var insuranceValue = insuranceQuotationRow[0].value;
+
+                        var validCompanies;
+
                         //console.log(insuranceValue);
                         var data = null;
                         var quotationValue = connection.query("SELECT * FROM insurance_purpose_value WHERE insurance_type='1' AND purpose='1'", function (err, equationRows) {
@@ -20,6 +23,23 @@ module.exports = function(router){
                                 //var equation = equationRows[j].equation;
                                 insuranceCompanyValues[equationRows[j].insurance_company] = (100 + equationRows[j].value) * insuranceValue / 100;
                             }
+
+
+                            req.getConnection(function (err, connector) {
+                                var query = connector.query("SELECT " +
+                                    "distinct insurance_companies.id AS company_id " +
+                                    "FROM " +
+                                    "insurance_companies " +
+                                    "Inner Join insurance_features ON insurance_companies.id = insurance_features.insurance_id " +
+                                    "Inner Join insurance_types ON insurance_types.id = insurance_features.insurance_type ", function (err, rows) {
+                                    if(err){
+                                        console.log(err);
+                                    }
+                                    validCompanies=rows;
+
+                                });
+                            });
+
 
                             //for (var j = 0; j < equationRows.length; j++) {
                             //    var equation = equationRows[j].equation;
@@ -85,12 +105,72 @@ module.exports = function(router){
 
                                                     req.session.furtherVehicleDetails=true;
 
-                                                    res.render('vehicle/quotation_detail', {
-                                                        form: 'quotation',
-                                                        quotations: quotationRows,
-                                                        graphicInfo: graphicInfoRows,
-                                                        companies: insuranceCompanyRows,
-                                                        insuranceCompanyValues: insuranceCompanyValues
+                                                    var tableRows   =   {};
+                                                    var com = 0;
+                                                    var list = 0;
+                                                    var count=0;
+
+                                                    for(var h = 0; h < validCompanies.length; h++ ){
+
+                                                        list++;
+                                                        count=0;
+
+                                                        tableRows[list] = {
+                                                            id      : validCompanies[h].company_id,
+                                                            value   : thousandSeparato(insuranceCompanyValues[validCompanies[h].company_id]),
+                                                            link    : '/furtherVehicleDetails'
+                                                        };
+
+                                                        com = validCompanies[h].company_id;
+
+                                                        for(var i=0;i<quotationRows.length;i++){
+
+
+                                                            if(com==quotationRows[i].company_id){
+
+                                                                if(count<6){
+                                                                    count++;
+                                                                    tableRows[list]["item"+count]=quotationRows[i].insurance_feature;
+                                                                }else{
+                                                                    count=0;
+                                                                }
+
+                                                            }
+
+                                                        }
+
+
+                                                    }
+
+                                                    var pathInfo= '<div class="insurance_text">'
+                                                                        +'Request Form'
+                                                                    +'</div>'
+                                                                    +'<ul class="breadcrumbc">'
+                                                                        +'<li class="breadcrumb__item breadcrumb__item--blank">'
+                                                                            +'Vehicle Details'
+                                                                        +'</li>'
+                                                                        +'<li class="breadcrumb__item breadcrumb__item--blank">'
+                                                                            +'Personal Info'
+                                                                        +'</li>'
+                                                                        +'<li class="breadcrumb__item breadcrumb__item--blank" >'
+                                                                            +'Insurance Info'
+                                                                        +'</li>'
+                                                                        +'<li class="breadcrumb__item breadcrumb__item--current" style="color: green">'
+                                                                            +'Quotation'
+                                                                        +'</li>'
+                                                                        +'<li class="breadcrumb__item breadcrumb__item--blank">'
+                                                                            +'Further Vehicle Information'
+                                                                        +'</li>'
+                                                                    +'</ul>';
+
+
+
+
+                                                    res.render('quotation', {
+                                                        treeData                : pathInfo,
+                                                        graphicInfo             : graphicInfoRows,
+                                                        companies               : insuranceCompanyRows,
+                                                        tableData               : tableRows
                                                     });
                                                 });
                                         });
@@ -110,6 +190,14 @@ module.exports = function(router){
 
     });
 
+}
+
+function thousandSeparato(val){
+
+    var num = val.toString().replace(/,/gi, "");
+    var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
+
+    return num2;
 }
 
 

@@ -13,10 +13,14 @@
 <script type="text/javascript" src="/static/js/script.js"></script>
 <script type="text/javascript" src="/static/lib/validator-js/validator.min.js"></script>
 
+<script src="/static/lib/select2/dist/js/select2.min.js"></script>
 
 
 
 <script type="text/javascript" >
+
+
+    //$('select').select2();
 
     <%
     if(typeof(countGroup)!='undefined'){
@@ -532,6 +536,16 @@
             return true;
         }
 
+        return false;
+    }
+
+
+    function findValueObj(o, value ,key) {
+        for (var prop in o) {
+            if (o[prop][key] == value) {
+                return true;
+            }
+        }
         return false;
     }
 

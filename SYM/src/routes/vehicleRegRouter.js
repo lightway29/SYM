@@ -85,8 +85,7 @@ function  covertAlphaInToUpperCase(str) {
 
 function validateFormCar(Province,Letter,Number,VType) {
 
-    return (validator.isAlpha(Province)
-        && validator.isByteLength(Province,{min:2,max:2})
+    return (validator.isNumeric(Province)
         && validator.isUppercase(Province)
         && validator.isAlphanumeric(Letter)
         && validator.isByteLength(Letter,{min:2,max:3})

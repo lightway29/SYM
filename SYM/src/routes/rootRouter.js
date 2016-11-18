@@ -15,11 +15,22 @@ module.exports = function(router,nav){
                     console.log('Error Selecting : %s ', err);
                 }
 
-                res.render('index', {
-                    form:'insuranceInfo',
-                    nav:nav,
-                    travel_types:travel_type_rows
+                var province_query = connector.query('SELECT * FROM province_list', function (err, province_rows) {
+
+                    if (err) {
+                        console.log('Error Selecting : %s ', err);
+                    }
+
+                    res.render('index', {
+                        form            :   'insuranceInfo',
+                        nav             :   nav,
+                        travel_types    :   travel_type_rows,
+                        province_data   :   province_rows
+                    });
+
+
                 });
+
 
             });
 

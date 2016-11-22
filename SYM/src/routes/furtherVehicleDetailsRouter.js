@@ -23,9 +23,9 @@ module.exports = function(router){
 
                             //console.log("param id =" +req.params.id);
 
-                            var quotationValue = connector.query("SELECT * FROM insurance_purpose_value WHERE insurance_type='1' AND purpose='1' AND insurance_company="+req.params.id, function (err, equationRows) {
+                            var quotationValue = connector.query("SELECT * FROM insurance_companies WHERE  id="+req.params.id, function (err, equationRows) {
 
-                                var insuranceCompanyValue = (100 + equationRows[0].value) * insuranceValue / 100;
+                                var insuranceCompanyValue = ((( equationRows[0].calculation) * insuranceValue) / 100).toFixed(2);
 
                                 //console.log(insuranceCompanyValue);
 

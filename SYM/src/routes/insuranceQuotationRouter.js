@@ -21,7 +21,9 @@ module.exports = function(router){
                             var insuranceCompanyValues = {};
                             for (var j = 0; j < equationRows.length; j++) {
                                 //var equation = equationRows[j].equation;
-                                insuranceCompanyValues[equationRows[j].id] = (( equationRows[j].calculation) * insuranceValue) / 100;
+                                insuranceCompanyValues[equationRows[j].id] = ((( equationRows[j].calculation) * insuranceValue) / 100).toFixed(2);
+
+                                console.log(equationRows[j].insurance_name)
 
 
 
@@ -34,7 +36,7 @@ module.exports = function(router){
                                     "FROM " +
                                     "insurance_companies " +
                                     "Inner Join insurance_features ON insurance_companies.id = insurance_features.insurance_id " +
-                                    "Inner Join insurance_types ON insurance_types.id = insurance_features.insurance_type ", function (err, rows) {
+                                    "Inner Join insurance_types ON insurance_types.id = insurance_features.insurance_type  where  insurance_companies.status=1", function (err, rows) {
                                     if(err){
                                         console.log(err);
                                     }

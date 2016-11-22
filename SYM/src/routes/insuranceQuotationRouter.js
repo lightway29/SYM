@@ -16,12 +16,15 @@ module.exports = function(router){
 
                         //console.log(insuranceValue);
                         var data = null;
-                        var quotationValue = connection.query("SELECT * FROM insurance_purpose_value WHERE insurance_type='1' AND purpose='1'", function (err, equationRows) {
+                        var quotationValue = connection.query("SELECT * FROM insurance_companies WHERE status='1' ", function (err, equationRows) {
 
                             var insuranceCompanyValues = {};
                             for (var j = 0; j < equationRows.length; j++) {
                                 //var equation = equationRows[j].equation;
-                                insuranceCompanyValues[equationRows[j].insurance_company] = (100 + equationRows[j].value) * insuranceValue / 100;
+                                insuranceCompanyValues[equationRows[j].id] = (( equationRows[j].calculation) * insuranceValue) / 100;
+
+
+
                             }
 
 
@@ -192,12 +195,18 @@ module.exports = function(router){
 
 }
 
-function thousandSeparato(val){
 
-    var num = val.toString().replace(/,/gi, "");
-    var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
 
-    return num2;
+function thousandSeparato(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
 }
 
 

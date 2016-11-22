@@ -35,6 +35,7 @@
     %>
 
 
+
     $('#dobFixedDiposit').datetimepicker({
         format  : 'DD/MM/YYYY',
         maxDate : moment()
@@ -114,13 +115,6 @@
 
     });
 
-    $('#insuranceDetailDatePicker').datetimepicker({
-        ignoreReadonly: true,
-        format: 'DD/MM/YYYY',
-        minDate: moment()
-
-
-    });
 
     $('#dobTravelInsurance').datetimepicker({
         ignoreReadonly: true,
@@ -133,6 +127,60 @@
     $(".readonly").keydown(function(e){
         e.preventDefault();
     });
+
+    function addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
+
+
+    $(function () {
+        $('#insuranceEndDetailDatePicker').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+        $('#newInsuranceDatePicker').datetimepicker({
+            format: 'DD/MM/YYYY',
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#insuranceEndDetailDatePicker").on("dp.change", function (e) {
+
+            $('#newInsuranceDatePicker').data("DateTimePicker").minDate(addDays(e.date,1));
+        });
+        $("#newInsuranceDatePicker").on("dp.change", function (e) {
+            $('#insuranceEndDetailDatePicker').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+
+
+    $('#valueM').keydown(function() {
+        //$('#output').html($(this).val());
+
+        var OriValue    =   document.getElementById('oriValue');
+        var Value       =   document.getElementById('valueM').value;
+
+        Value       = Value.replace( /,/g, "" );
+
+
+        if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
+
+
+            $('#valueM').get(0).setCustomValidity('Value you have entered is not compatible, please enter 10% variation from original value.');
+
+
+        }else{
+            $('#valueM').get(0).setCustomValidity('');
+
+            //alert('ok');
+        }
+
+
+
+
+
+    });
+
+
 
 
     $("#dateOfArrivalDatePicker").on("dp.change", function (e) {
@@ -224,12 +272,14 @@
 
     function validateFormDetailsV() {
 
-        var Make    =   document.getElementById('make');
-        var Model   =   document.getElementById("model");
-        var Year    =   document.getElementById("year");
-        var Value   =   $("input[data-type='number']").val();
+        var Make        =   document.getElementById('make');
+        var Model       =   document.getElementById("model");
+        var Year        =   document.getElementById("year");
+        var Value       =   $("input[data-type='number']").val();
+        var OriValue    =   document.getElementById("oriValue");
+        var Fuel        =   document.getElementById("fuel")
 
-        Value = Value.replace( /,/g, "" );
+        Value       = Value.replace( /,/g, "" );
 
         return (
                 validator.isNumeric(Make.value)
@@ -239,9 +289,15 @@
                 &&  validator.isNumeric(Year.value)
                 &&  (Year.value>0)
                 &&  validator.isNumeric(Value)
-                &&  (Value>999)
+                &&  (((+(OriValue.value) *0.9) < +Value) && ((+(OriValue.value) *1.1) > +Value ))
+                &&  validator.isNumeric(Fuel.value)
+                &&  (Fuel.value>0)
+
 
         );
+
+
+
 
 
     }
@@ -409,15 +465,13 @@
 
         var no_claim_bonus      =   document.getElementById('no_claim_bonus');
         var insurance_company   =   document.getElementById('insurance_company');
+        var exInsurance         =   document.getElementById("endDateInsurance");
+        var startDateInsurance  =   document.getElementById("newInsuranceDate");
         var cover_type          =   document.getElementById("cover_type");
-        var startDateInsurance  =   document.getElementById("startDateInsurance");
         var voluntary_excess    =   document.getElementById("voluntary_excess");
         var purpose             =   document.getElementById("purpose");
         var termSmokeTrue       =   document.getElementById("termSmokeTrue");
         var termSmokeFalse      =   document.getElementById("termSmokeFalse");
-
-
-
 
         return (
                 !(termSmokeFalse.checked===termSmokeTrue.checked)
@@ -427,6 +481,7 @@
                 &&  (insurance_company.value>0)
                 &&  validator.isNumeric(cover_type.value)
                 &&  (cover_type.value>0)
+                &&  moment(exInsurance.value, "DD/MM/YYYY", true).isValid()
                 &&  moment(startDateInsurance.value, "DD/MM/YYYY", true).isValid()
                 &&  validator.isNumeric(voluntary_excess.value)
                 &&  (voluntary_excess.value>0)
@@ -434,6 +489,7 @@
                 &&  (purpose.value>0)
 
         );
+
 
     }
 
@@ -569,6 +625,34 @@
             document.getElementById("country2").required    = true;
             document.getElementById("postalcode2").required = true;
         }
+    });
+
+
+    function thousandSeparato(val){
+
+        var num = val.toString().replace(/,/gi, "");
+        var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
+
+        return num2;
+    }
+
+    $(document).ready(function() {
+        $("#valueM").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    // Allow: Ctrl+A, Command+A
+                    (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                    // Allow: home, end, left, right, down, up
+                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+
+                e.preventDefault();
+            }
+        });
     });
 
 

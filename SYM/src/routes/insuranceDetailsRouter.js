@@ -70,7 +70,7 @@ module.exports = function(router){
         var input = JSON.parse(JSON.stringify(req.body));
 
         if(req.session.vehiclePersonal && req.session.vehicleDetails && req.session.vehicleInsurance){
-            if(validateFormInsuranceV(req.body.no_claim_bonus,req.body.insurance_company,req.body.cover_type,req.body.startDateInsurance,req.body.voluntary_excess,req.body.purpose,req.body.termSmoke)){
+            if(validateFormInsuranceV(req.body.no_claim_bonus,req.body.insurance_company,req.body.cover_type,req.body.endDateInsurance,req.body.newInsuranceDate,req.body.voluntary_excess,req.body.purpose,req.body.termSmoke)){
                 req.getConnection(function (err, connector) {
 
 
@@ -79,7 +79,8 @@ module.exports = function(router){
                         no_claim_bonus          :   input.no_claim_bonus,
                         current_insurer         :   input.insurance_company,
                         cover_type_required     :   input.cover_type,
-                        start_date              :   convertDate(input.startDateInsurance),
+                        ex_insurance_date       :   convertDate(input.endDateInsurance,'12:00:00'),
+                        start_date              :   convertDate(input.newInsuranceDate,'00:00:00'),
                         voluntary_excess        :   input.voluntary_excess,
                         purpose                 :   input.purpose,
                         authorise_agent_repair  :   input.termSmoke
@@ -122,12 +123,12 @@ module.exports = function(router){
 
 }
 
-var convertDate = function(usDate) {
+var convertDate = function(usDate,time) {
     var dateParts = usDate.split(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-    return dateParts[3] + "-" + dateParts[2]+ "-" + dateParts[1] ;
+    return dateParts[3] + "-" + dateParts[2]+ "-" + dateParts[1] +" "+time ;
 }
 
-function validateFormInsuranceV(no_claim_bonus,insurance_company,cover_type,startDateInsurance,voluntary_excess,purpose,SmokeTrue ) {
+function validateFormInsuranceV(no_claim_bonus,insurance_company,cover_type,exInsurance,startDateInsurance,voluntary_excess,purpose,SmokeTrue ) {
 
     return (
         validator.isNumeric(no_claim_bonus)
@@ -136,6 +137,7 @@ function validateFormInsuranceV(no_claim_bonus,insurance_company,cover_type,star
         &&  (insurance_company>0)
         &&  validator.isNumeric(cover_type)
         &&  (cover_type>0)
+        &&  moment(exInsurance, "DD/MM/YYYY", true).isValid()
         &&  moment(startDateInsurance, "DD/MM/YYYY", true).isValid()
         &&  validator.isNumeric(voluntary_excess)
         &&  (voluntary_excess>0)

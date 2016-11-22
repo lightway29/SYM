@@ -49,23 +49,35 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="field field--required field--three-eights field--show-floating-label">
+                    <div class="field__input-wrapper field__input-wrapper--select">
+                        <label for="checkout_shipping_address_country" class="field__label">Fuel Type</label>
+                        <select name="fuel" id="fuel" class="field__input field__input--select" required disabled>
+                            <option value="">Select Fuel Type</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">Year</label>
-                        <select name="year" id="year" class="field__input field__input--select" required>
+                        <select name="year" id="year" class="field__input field__input--select" required disabled>
                             <option value="">Select Year</option>
-                            <% for(var x = 1910; x <= 2016; x++){ %>
-                            <option value="<%= x %>"><%= x %></option>
-                            <% } %>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div id="showValuelabel" class="field__input-wrapper">
+
+                    <input type="hidden" value="" name="oriValue" id="oriValue">
+
                     <label for="checkout_name" class="field__label">Value</label>
-                    <input id="numberValue" id="valueM" name="value" type="text" placeholder="Value" class="field__input"  pattern="^(?:(?=.{1,}$)\d{1,3}(?:,\d{3})+|(.{1,}$)\d+)$" required  data-type="number" autocomplete="off"/>
+                    <input id="valueM" name="value" type="text" placeholder="Value" class="field__input"  pattern="^(?:(?=.{1,}$)\d{1,3}(?:,\d{3})+|(.{1,}$)\d+)$" required  data-type="number" autocomplete="off" disabled/>
 
                 </div>
 

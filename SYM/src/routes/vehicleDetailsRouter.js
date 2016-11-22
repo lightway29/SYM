@@ -39,7 +39,7 @@ module.exports = function(router){
             var input = JSON.parse(JSON.stringify(req.body));
 
 
-            if(validateFormDetailsV(req.body.make,req.body.model,req.body.year,req.body.value)){
+            if(validateFormDetailsV(req.body.make,req.body.model,req.body.year,req.body.value,req.body.oriValue,req.body.fuel)){
                 req.getConnection(function (err, connector) {
 
                     var str=input.value;
@@ -50,7 +50,8 @@ module.exports = function(router){
                         make    :   input.make,
                         model   :   input.model,
                         year    :   input.year,
-                        value   :   str
+                        value   :   str,
+                        fuel    :   input.fuel
 
                     };
 
@@ -91,7 +92,7 @@ module.exports = function(router){
         var id = req.body.v_make;
 
         req.getConnection(function (err, connector) {
-            var query = connector.query('SELECT * FROM vehicle_model WHERE vehicle_id = ?', [id], function (err, rows) {
+            var query = connector.query('SELECT * FROM vehicle_model WHERE vehicle_id = ? and status =?', [id,1], function (err, rows) {
                 if(err){
                     console.log(err);
                 }
@@ -101,9 +102,62 @@ module.exports = function(router){
 
     });
 
+
+    router.post('/getVehicleYear', function(req, res){
+
+        var id      = req.body.v_model;
+        var type    = req.body.fuel_type;
+
+        req.getConnection(function (err, connector) {
+            var query = connector.query('SELECT distinct year   FROM vehicle_valivation where model_id=? and fuel_type=?', [id,type], function (err, rows) {
+                if(err){
+                    console.log(err);
+                }
+                return res.send(rows);
+            });
+        });
+
+    });
+
+
+    router.post('/getVehicleFuel', function(req, res){
+
+        var id = req.body.v_model;
+
+        req.getConnection(function (err, connector) {
+            var query = connector.query('SELECT distinct fuel_types.name,fuel_types.id FROM vehicle_valivation left JOIN fuel_types ON vehicle_valivation.fuel_type=fuel_types.id where vehicle_valivation.model_id=?', [id], function (err, rows) {
+                if(err){
+                    console.log(err);
+                }
+                return res.send(rows);
+            });
+        });
+
+    });
+
+
+    router.post('/getVehicleValue', function(req, res){
+
+        var id      = req.body.v_model;
+        var fuel    = req.body.fuel_type;
+        var year    = req.body.year;
+
+        req.getConnection(function (err, connector) {
+            var query = connector.query('SELECT valivation FROM dbsym.vehicle_valivation where model_id=? and fuel_type=? and year=?', [id,fuel,year], function (err, rows) {
+                if(err){
+                    console.log(err);
+                }
+
+                return res.send(rows);
+            });
+        });
+
+    });
+
+
 }
 
-function validateFormDetailsV(Make,Model,Year,Value) {
+function validateFormDetailsV(Make,Model,Year,Value,OriValue,Fuel) {
 
     Value = Value.replace( /,/g, "" );
 
@@ -117,7 +171,9 @@ function validateFormDetailsV(Make,Model,Year,Value) {
         &&  validator.isNumeric(Year)
         &&  (Year>0)
         &&  validator.isNumeric(Value)
-        &&  (Value>999)
+        &&  (((+(OriValue) *0.9) < +Value) && ((+(OriValue) *1.1) > +Value ))
+        &&  validator.isNumeric(Fuel)
+        &&  (Fuel>0)
 
     );
 

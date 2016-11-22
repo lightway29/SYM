@@ -31,8 +31,8 @@
                         <label for="checkout_shipping_address_country" class="field__label">No Claims Bonus</label>
                         <select id="no_claim_bonus" name="no_claim_bonus" class="field__input field__input--select" required>
                             <option value="">Select No Claims Bonus</option>
-                            <% for(var x = 1; x < 5; x++) { %>
-                            <option value="<%= x %>"><%= x %> year</option>
+                            <% for(var x = 1; x < 15; x++) { %>
+                            <option value="<%= x*5 %>"><%= x*5 %> %</option>
                             <% } %>
                         </select>
                     </div>
@@ -51,7 +51,39 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+
+            <div class="row paddInsu">
+
+                <div class="col-md-6" style="padding-left: 0">
+                    <div id="showstartdatelabel" class="field__input-wrapper">
+                        <label for="checkout_shipping_address_country" class="field__label">Current/pre Insurance End Date</label>
+                        <div class='input-group date' id='insuranceEndDetailDatePicker' style="margin-bottom: 10px; margin-top: 10px;">
+                            <input id="endDateInsurance" name="endDateInsurance" type='text' class="field__input readonly" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="Current/pre Insurance End Date"  required  autocomplete="off" style="margin-bottom: 0px;" />
+                            <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 " style="padding-right: 0">
+                    <div id="showstartdatelabel" class="field__input-wrapper">
+                        <label for="checkout_shipping_address_country" class="field__label">New Insurance Start Date</label>
+                        <div class='input-group date' id='newInsuranceDatePicker' style="margin-bottom: 10px; margin-top: 10px;">
+                            <input id="newInsuranceDate" name="newInsuranceDate" type='text' class="field__input readonly" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="New Insurance Start Date"  required  autocomplete="off" style="margin-bottom: 0px;" />
+                            <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row position_none">
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">Cover Type</label>
@@ -64,17 +96,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row paddInsu">
-                <div id="showstartdatelabel" class="field__input-wrapper">
-                    <label for="checkout_shipping_address_country" class="field__label">Start Date</label>
-                    <div class='input-group date' id='insuranceDetailDatePicker' >
-                        <input id="startDateInsurance" name="startDateInsurance" type='text' class="field__input readonly" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="Start Date"  required  autocomplete="off" />
-                        <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                    </div>
-                </div>
-            </div>
+
+
+
             <div class="row position_none">
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">

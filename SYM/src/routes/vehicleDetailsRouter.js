@@ -92,7 +92,7 @@ module.exports = function(router){
         var id = req.body.v_make;
 
         req.getConnection(function (err, connector) {
-            var query = connector.query('SELECT * FROM vehicle_model WHERE vehicle_id = ? and status =?', [id,1], function (err, rows) {
+            var query = connector.query('SELECT * FROM vehicle_models WHERE vehicle_id = ? and status =?', [id,1], function (err, rows) {
                 if(err){
                     console.log(err);
                 }

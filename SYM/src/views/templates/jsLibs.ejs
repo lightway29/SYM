@@ -14,6 +14,7 @@
 <script type="text/javascript" src="/static/lib/validator-js/validator.min.js"></script>
 
 <script src="/static/lib/select2/dist/js/select2.min.js"></script>
+<script src="/static/lib/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
@@ -145,7 +146,16 @@
         });
         $("#insuranceEndDetailDatePicker").on("dp.change", function (e) {
 
-            $('#newInsuranceDatePicker').data("DateTimePicker").minDate(addDays(e.date,1));
+            var today=new Date();
+
+            if(today>e.date){
+
+                $('#newInsuranceDatePicker').data("DateTimePicker").minDate(today);
+            }else{
+                $('#newInsuranceDatePicker').data("DateTimePicker").minDate(addDays(e.date,1));
+
+            }
+
         });
         $("#newInsuranceDatePicker").on("dp.change", function (e) {
             $('#insuranceEndDetailDatePicker').data("DateTimePicker").maxDate(e.date);
@@ -153,32 +163,6 @@
     });
 
 
-    $('#valueM').keydown(function() {
-        //$('#output').html($(this).val());
-
-        var OriValue    =   document.getElementById('oriValue');
-        var Value       =   document.getElementById('valueM').value;
-
-        Value       = Value.replace( /,/g, "" );
-
-
-        if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
-
-
-            $('#valueM').get(0).setCustomValidity('Value you have entered is not compatible, please enter 10% variation from original value.');
-
-
-        }else{
-            $('#valueM').get(0).setCustomValidity('');
-
-            //alert('ok');
-        }
-
-
-
-
-
-    });
 
 
 
@@ -281,6 +265,12 @@
 
         Value       = Value.replace( /,/g, "" );
 
+        if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
+
+            swal("Valuation Range Error...", "only with in "+ addComma(Math.round((OriValue.value) *0.9))+ " - "+ addComma(Math.round((OriValue.value) *1.1))+" range values can be added!", "error");
+        }
+
+
         return (
                 validator.isNumeric(Make.value)
                 &&  (Make.value>0)
@@ -289,7 +279,7 @@
                 &&  validator.isNumeric(Year.value)
                 &&  (Year.value>0)
                 &&  validator.isNumeric(Value)
-                &&  (((+(OriValue.value) *0.9) < +Value) && ((+(OriValue.value) *1.1) > +Value ))
+                &&  (((+(OriValue.value) *0.9) <= +Value) && ((+(OriValue.value) *1.1) >= +Value ))
                 &&  validator.isNumeric(Fuel.value)
                 &&  (Fuel.value>0)
 
@@ -300,6 +290,18 @@
 
 
 
+    }
+
+    function addComma(nStr) {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
     }
 
 

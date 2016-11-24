@@ -969,7 +969,11 @@
         <% include templates/jsLibs.ejs %>
 
         <script type="text/javascript">
+          $(function(){
+            var $vForm = $('vForm');
 
+            $vForm.validate();
+          })
 
             function changeFun(id){
                 if(id==1){
@@ -1042,11 +1046,9 @@
             formHousingLoan.onsubmit    =   validationFormHousingLoan;
             formVehicaleLease.onsubmit  =   validationFormVehicaleLease;
 
-            formFD.onsubmit  =  validationformFD;
 
 
-
-
+            // formFD.onsubmit  =  validationformFD;
 
             function validationformFD() {
 
@@ -1118,7 +1120,7 @@
                         && validator.isNumeric(TravelGroupNumber.value)
                         && (TravelGroupNumber.value>0)
                 );
-                
+
             }
 
             function validateFormCar() {

@@ -15,6 +15,10 @@
 
 <script type="text/javascript">
 $(function() {
+  /**
+   * Validate Vehicle Details form.
+   */
+
   var $valuation = $('#valueM');
   var $makeSelectField = $('#make');
   var $modelSelectField = $('#model');
@@ -217,6 +221,16 @@ $(function() {
   });
 
   $(".selectpicker").selectpicker();
+
+  /**
+   * Validate Personal Details
+   */
+  var $titleTextField = $('title');
+  var $firstNameTextField = $('firstname');
+  var $lastNameTextField = $('lastname');
+  var emailTextField = $('email');
+  var mobileTelField = $('mobile');
+  var nicTextField = $('nic');
 });
 </script>
 </body>

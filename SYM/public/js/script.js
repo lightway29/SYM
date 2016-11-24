@@ -16,9 +16,9 @@ jQuery(document).ready(function () {
     });
     jQuery("#showdateofdeplabel .input-group-addon").click(function () {
         jQuery('#showdateofdeplabel').addClass('field--show-floating-label');
-    }); 
-    
-    
+    });
+
+
     jQuery("#valueInput").keypress(function () {
         jQuery('#showValuelabel').addClass('field--show-floating-label');
     });
@@ -84,6 +84,12 @@ jQuery(document).ready(function () {
                     jQuery('#payment-gateway-subfields-6692801').removeClass('hidden');
                 }
             });
+
+    var closeMenu = function() {
+      jQuery('#nav-full-toggle').removeClass('active');
+      jQuery('#nav-full').removeClass('active');
+    }
+
     jQuery('#nav-full-toggle').click(function () {
         jQuery('#nav-full').toggle();
         if (jQuery('#nav-full:visible').size() != 0)
@@ -92,10 +98,14 @@ jQuery(document).ready(function () {
             jQuery('#nav-full').addClass('active');
         } else
         {
-            jQuery('#nav-full-toggle').removeClass('active');
-            jQuery('#nav-full').removeClass('active');
+          closeMenu();
         }
     });
+
+    jQuery('#nav-full .mobile-tablet-true > a').on('click', function(e) {
+      closeMenu();
+    });
+
     jQuery('.familyTravel_second .travelproceed').click(function () {
         var val=jQuery( "#typeOfCover" ).val();
         if(val==1){
@@ -408,8 +418,8 @@ jQuery(document).ready(function () {
             return false; // prevent normal form posting
         }
     });
-    
-    
+
+
     jQuery("#single_trip_travel_info_id").validate({
         submitHandler: function (form) {
             if (jQuery(form).valid()) {
@@ -426,7 +436,7 @@ jQuery(document).ready(function () {
                 error.appendTo('#showdateofarrivallabel');
             else
                 error.insertAfter(element);
-            
+
           }
     });
 
@@ -441,7 +451,7 @@ jQuery(document).ready(function () {
             }
         }
     });
-    
+
     jQuery("#travel_group_travel_info_id").validate({
         submitHandler: function (form) {
             if (jQuery(form).valid()) {

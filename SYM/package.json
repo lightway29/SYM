@@ -17,8 +17,10 @@
     "method-override": "^2.3.6",
     "moment": "^2.15.1",
     "mysql": "^2.11.1",
+    "nodemon": "^1.11.0",
     "passport": "^0.3.2",
-    "validator": "^6.0.0"
+    "validator": "^6.0.0",
+    "watchify": "^3.7.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

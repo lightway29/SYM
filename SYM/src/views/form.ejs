@@ -15,155 +15,208 @@
 
 <script type="text/javascript">
 $(function() {
-    $(".selectpicker").selectpicker();
+  var $valuation = $('#valueM');
+  var $makeSelectField = $('#make');
+  var $modelSelectField = $('#model');
+  var $fuelSelectField = $('#fuel');
+  var $yearSelectField = $('#year');
+  window.makeSelectField = $makeSelectField;
+  window.modelSelectField = $modelSelectField;
+  window.fuelSelectField = $fuelSelectField;
+  window.yearSelectField = $yearSelectField;
 
-    $("#make").change(function() {
-        var a = {
-            v_make: $(this).val()
-        };
-        var b = "http://" + window.location.host + "/vehicleDetails/getVehicleModel";
+  var resetSelectField = function(selector) {
+    var $field = $(selector);
+    $field.children(':selected').prop('selected', false);
+  }
 
-        $.ajax({
-            type: "post",
-            url: b,
-            data: a,
-            dataType: "json",
-            cache: false,
-            success: function(a) {
-                var b = "";
-
-                if (jQuery.isEmptyObject(a)) {
-                    alert("no vehicles from this make");
-
-                    b = '<option value="">Select Model</option>';
-                    $("#model").html(b).attr("disabled", true);
-
-                    b = '<option value="">Select Fuel Type</option>';
-                    $("#fuel").html(b).attr("disabled", true);
-
-                    b = '<option value="">Select Year</option>';
-                    $("#year").html(b).attr("disabled", true);
-
-                    document.getElementById("valueM").value = "";
-                    $("#valueM").attr("disabled", true);
-                } else {
-                    b += '<option value="">Select Model</option>';
-
-                    $.each(a, function(a, c) {
-                        b += '<option value="' + c.id + '">' + c.vehicleModel + "</option>";
-                    });
-
-                    $("#model").html(b).attr("disabled", false);
-                }
-            }
-        });
+  var resetSelectFields = function(fields) {
+    $.each(fields, function(fields, field) {
+      resetSelectField(field);
     });
 
-    $("#model").change(function() {
-        var a = {
-            v_model: $(this).val()
-        };
-        var b = "http://" + window.location.host + "/vehicleDetails/getVehicleFuel";
+    // Clear valuation as well.
+    $valuation.val('');
+  }
 
-        $.ajax({
-            type: "post",
-            url: b,
-            data: a,
-            dataType: "json",
-            cache: false,
-            success: function(a) {
-                var b = "";
-                if (jQuery.isEmptyObject(a)) {
-                    b = '<option value="">Select Fuel Type</option>';
-                    $("#fuel").html(b).attr("disabled", true);
+  $(".selectpicker").selectpicker();
 
-                    b = '<option value="">Select Year</option>';
-                    $("#year").html(b).attr("disabled", true);
+  $makeSelectField.on('change', function() {
+      var a = {
+          v_make: $(this).val()
+      };
+      var b = "http://" + window.location.host + "/vehicleDetails/getVehicleModel";
 
-                    document.getElementById("valueM").value = "";
-                    $("#valueM").attr("disabled", true);
-                } else {
-                    b += '<option value="">Select Fuel Type</option>';
+      $.ajax({
+          type: "post",
+          url: b,
+          data: a,
+          dataType: "json",
+          cache: false,
+          success: function(a) {
+              var b = "";
 
-                    $.each(a, function(a, c) {
-                        b += '<option value="' + c.id + '">' + c.name + "</option>";
-                    });
+              if (jQuery.isEmptyObject(a)) {
+                  alert("no vehicles from this make");
 
-                    $("#fuel").html(b).attr("disabled", false);
-                }
-            }
-        });
-    });
+                  b = '<option value="">Select Model</option>';
+                  $("#model").html(b).attr("disabled", true);
 
-    $("#fuel").change(function() {
-        var a = {
-            v_model: document.getElementById("model").value,
-            fuel_type: $(this).val()
-        };
+                  b = '<option value="">Select Fuel Type</option>';
+                  $("#fuel").html(b).attr("disabled", true);
 
-        var b = "http://" + window.location.host + "/vehicleDetails/getVehicleYear";
+                  b = '<option value="">Select Year</option>';
+                  $("#year").html(b).attr("disabled", true);
 
-        $.ajax({
-            type: "post",
-            url: b,
-            data: a,
-            dataType: "json",
-            cache: false,
-            success: function(a) {
-                var b = "";
+                  document.getElementById("valueM").value = "";
+                  $("#valueM").attr("disabled", true);
+              } else {
+                /**
+                 * Reset all proceeding fields.
+                 */
+                resetSelectFields(
+                  [
+                    window.modelSelectField,
+                    window.fuelSelectField,
+                    window.yearSelectField
+                  ]
+                )
 
-                if (jQuery.isEmptyObject(a)) {
-                    b = '<option value="">Select Year</option>';
-                    $("#year").html(b).attr("disabled", true);
+                b += '<option value="">Select Model</option>';
+                $.each(a, function(a, c) {
+                    b += '<option value="' + c.id + '">' + c.vehicleModel + "</option>";
+                });
 
-                    document.getElementById("valueM").value = "";
-                    $("#valueM").attr("disabled", true);
-                } else {
-                    b += '<option value="">Select Year</option>';
+                $("#model").html(b).attr("disabled", false);
+              }
+          }
+      });
+  });
 
-                    $.each(a, function(a, c) {
-                        b += '<option value="' + c.year + '">' + c.year + "</option>";
-                    });
+  $("#model").change(function() {
+      var a = {
+          v_model: $(this).val()
+      };
+      var b = "http://" + window.location.host + "/vehicleDetails/getVehicleFuel";
 
-                    $("#year").html(b).attr("disabled", false);
-                }
-            }
-        });
-    });
+      $.ajax({
+          type: "post",
+          url: b,
+          data: a,
+          dataType: "json",
+          cache: false,
+          success: function(a) {
+              var b = "";
+              if (jQuery.isEmptyObject(a)) {
+                  b = '<option value="">Select Fuel Type</option>';
+                  $("#fuel").html(b).attr("disabled", true);
 
-    $("#year").change(function() {
-        var a = {
-            v_model: document.getElementById("model").value,
-            fuel_type: document.getElementById("fuel").value,
-            year: $(this).val()
-        };
+                  b = '<option value="">Select Year</option>';
+                  $("#year").html(b).attr("disabled", true);
 
-        var b = "http://" + window.location.host + "/vehicleDetails/getVehicleValue";
+                  document.getElementById("valueM").value = "";
+                  $("#valueM").attr("disabled", true);
+              } else {
+                /**
+                 * Reset all proceeding fields.
+                 */
+                resetSelectFields(
+                  [
+                    window.fuelSelectField,
+                    window.yearSelectField
+                  ]
+                )
 
-        $.ajax({
-            type: "post",
-            url: b,
-            data: a,
-            dataType: "json",
-            cache: false,
-            success: function(a) {
-                var b = "";
-                if (jQuery.isEmptyObject(a)) {
-                    document.getElementById("valueM").value = "";
-                    document.getElementById("oriValue").value = "";
+                  b += '<option value="">Select Fuel Type</option>';
 
-                    $("#valueM").attr("disabled", false);
-                } else {
-                    document.getElementById("valueM").value = thousandSeparato(a[0].valivation);
-                    document.getElementById("oriValue").value = a[0].valivation;
+                  $.each(a, function(a, c) {
+                      b += '<option value="' + c.id + '">' + c.name + "</option>";
+                  });
 
-                    $("#valueM").attr("disabled", false);
-                }
-            }
-        });
-    });
-    
-    $(".selectpicker").selectpicker();
+                  $("#fuel").html(b).attr("disabled", false);
+              }
+          }
+      });
+  });
+
+  $("#fuel").change(function() {
+      var a = {
+          v_model: document.getElementById("model").value,
+          fuel_type: $(this).val()
+      };
+
+      var b = "http://" + window.location.host + "/vehicleDetails/getVehicleYear";
+
+      $.ajax({
+          type: "post",
+          url: b,
+          data: a,
+          dataType: "json",
+          cache: false,
+          success: function(a) {
+              var b = "";
+
+              if (jQuery.isEmptyObject(a)) {
+                  b = '<option value="">Select Year</option>';
+                  $("#year").html(b).attr("disabled", true);
+
+                  document.getElementById("valueM").value = "";
+                  $("#valueM").attr("disabled", true);
+              } else {
+                /**
+                 * Reset all proceeding fields.
+                 */
+                resetSelectFields(
+                  [
+                    window.yearSelectField
+                  ]
+                )
+
+                b += '<option value="">Select Year</option>';
+
+                $.each(a, function(a, c) {
+                    b += '<option value="' + c.year + '">' + c.year + "</option>";
+                });
+
+                $("#year").html(b).attr("disabled", false);
+              }
+          }
+      });
+  });
+
+  $("#year").change(function() {
+      var a = {
+          v_model: document.getElementById("model").value,
+          fuel_type: document.getElementById("fuel").value,
+          year: $(this).val()
+      };
+
+      var b = "http://" + window.location.host + "/vehicleDetails/getVehicleValue";
+
+      $.ajax({
+          type: "post",
+          url: b,
+          data: a,
+          dataType: "json",
+          cache: false,
+          success: function(a) {
+              var b = "";
+              if (jQuery.isEmptyObject(a)) {
+                  document.getElementById("valueM").value = "";
+                  document.getElementById("oriValue").value = "";
+
+                  $("#valueM").attr("disabled", false);
+              } else {
+                  document.getElementById("valueM").value = thousandSeparato(a[0].valivation);
+                  document.getElementById("oriValue").value = a[0].valivation;
+
+                  $("#valueM").attr("disabled", false);
+              }
+          }
+      });
+  });
+
+  $(".selectpicker").selectpicker();
 });
 </script>
 </body>

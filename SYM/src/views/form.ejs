@@ -231,6 +231,25 @@ $(function() {
   var emailTextField = $('email');
   var mobileTelField = $('mobile');
   var nicTextField = $('nic');
+
+  if ($.validator) {
+    /**
+     * Extend our validation for name.
+     * @return boolean
+     */
+    $.validator.addMethod('nameRegEx', function (value, element) {
+      return this.optional(element) || !(/[^A-Za-z\-\ ]/.test(value));
+    });
+
+    /**
+     * Validate phone numbers.
+     * @return boolean
+     */
+    $.validator.addMethod('phoneRegEx', function (value, element) {
+      return this.optional(element) || !(/[^\d\+\(\)\- ]+/.test(value));
+    });
+  }
+
 });
 </script>
 </body>

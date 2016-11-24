@@ -36,3 +36,6 @@ SYM/.idea/workspace.xml
 .idea/workspace.xml
 
 SYM/.idea/
+
+# Ignore stuff in public/lib
+SYM/public/lib

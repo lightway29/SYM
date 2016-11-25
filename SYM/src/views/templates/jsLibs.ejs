@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/static/js/jquery.flexslider.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/static/js/script.js"></script>
-<script type="text/javascript" src="/static/lib/validator-js/validator.min.js"></script>
+
 <script src="/static/lib/select2/dist/js/select2.min.js"></script>
 <script src="/static/lib/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -28,6 +28,72 @@
         $(this).css({'backgroundColor':'#FFFFFF'});
         $(this).removeClass("validationError");
     });
+
+
+    var vehicleRegForm      =   document.getElementById("vDetailsForm");
+    vehicleRegForm.onsubmit =   validateFormDetailsV;
+
+
+function validateFormDetailsV() {
+
+    var Make        =   document.getElementById('make');
+    var Model       =   document.getElementById("model");
+    var Year        =   document.getElementById("year");
+    var Value       =   $("input[data-type='number']").val();
+    var OriValue    =   document.getElementById("oriValue");
+    var Fuel        =   document.getElementById("fuel");
+    var val2        =   document.getElementById("valueM");
+
+    Value       = Value.replace( /,/g, "" );
+
+
+
+    if(!(validator.isNumeric(Make.value) &&  (Make.value>0))){
+        swal('Validation Error...','Make must be selected!', "error");
+        Make.style.backgroundColor="#ffe6e6";
+        Make.className += " validationError";
+        return false;
+    }
+
+
+    if(!(validator.isNumeric(Model.value) &&  (Model.value>0))){
+        swal('Validation Error...','Model must be selected!', "error");
+        Model.style.backgroundColor="#ffe6e6";
+        Model.className += " validationError";
+        return false;
+    }
+
+    if(!(validator.isNumeric(Fuel.value) &&  (Fuel.value>0))){
+        swal('Validation Error...','Fuel must be selected!', "error");
+        Fuel.style.backgroundColor="#ffe6e6";
+        Fuel.className += " validationError";
+        return false;
+    }
+
+    if(!(validator.isNumeric(Year.value) &&  (Year.value>0))){
+        swal('Validation Error...','Year must be selected!', "error");
+        Year.style.backgroundColor="#ffe6e6";
+        Year.className += " validationError";
+        return false;
+    }
+
+
+    if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
+
+        swal("Valuation Range Error...", "only with in "+ addComma(Math.round((OriValue.value) *0.9))+ " - "+ addComma(Math.round((OriValue.value) *1.1))+" range values can be added!", "error");
+        val2.style.backgroundColor="#ffe6e6";
+        val2.className += " validationError";
+        return false;
+    }
+
+
+    return true;
+
+
+
+
+
+}
 
 
     <%
@@ -259,82 +325,7 @@
         });
     });
 
-    function validateFormDetailsV() {
 
-        var Make        =   document.getElementById('make');
-        var Model       =   document.getElementById("model");
-        var Year        =   document.getElementById("year");
-        var Value       =   $("input[data-type='number']").val();
-        var OriValue    =   document.getElementById("oriValue");
-        var Fuel        =   document.getElementById("fuel")
-
-        Value       = Value.replace( /,/g, "" );
-
-
-
-        if(!(validator.isNumeric(Make.value) &&  (Make.value>0))){
-            swal('Validation Error...','Make must be selected!', "error");
-            Make.style.backgroundColor="#ffe6e6";
-            Make.className += " validationError";
-            return false;
-        }
-
-
-        if(!(validator.isNumeric(Make.value))){
-            swal('Validation Error...','Make must be selected!', "error");
-            Make.style.backgroundColor="#ffe6e6";
-            Make.className += " validationError";
-            return false;
-        }
-
-            if(!(validator.isAlphanumeric(Letter.value) && validator.isByteLength(Letter.value,{min:2,max:3}))){
-
-                swal('Validation Error...','Invalid Letter!', "error");
-                Letter.style.backgroundColor="#ffe6e6";
-                Letter.className += " validationError";
-                return false;
-            }
-
-            if(!(validator.isNumeric(Number.value) && validator.isByteLength(Number.value,{min:4,max:4}))){
-
-                swal('Validation Error...','Invalid Number!', "error");
-                Number.style.backgroundColor="#ffe6e6";
-                Number.className += " validationError";
-                return false;
-            }
-
-
-
-
-
-
-
-        if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
-
-            swal("Valuation Range Error...", "only with in "+ addComma(Math.round((OriValue.value) *0.9))+ " - "+ addComma(Math.round((OriValue.value) *1.1))+" range values can be added!", "error");
-        }
-
-
-        return (
-
-
-                &&  validator.isNumeric(Model.value)
-                &&  (Model.value>0)
-                &&  validator.isNumeric(Year.value)
-                &&  (Year.value>0)
-                &&  validator.isNumeric(Value)
-                &&  (((+(OriValue.value) *0.9) <= +Value) && ((+(OriValue.value) *1.1) >= +Value ))
-                &&  validator.isNumeric(Fuel.value)
-                &&  (Fuel.value>0)
-
-
-        );
-
-
-
-
-
-    }
 
     function addComma(nStr) {
         nStr += '';
@@ -706,3 +697,4 @@
 
 <!-- Load Babelified ES6/ES7 - total hack, given the state of this code-base :anguished: -->
 <script type="text/javascript" src="/static/js/bundle.js"></script>
+<script type="text/javascript" src="/static/lib/validator-js/validator.min.js"></script>

@@ -52,6 +52,7 @@ $(function () {
     var $modelSelectField = $('#model');
     var $fuelSelectField = $('#fuel');
     var $yearSelectField = $('#year');
+
     window.makeSelectField = $makeSelectField;
     window.modelSelectField = $modelSelectField;
     window.fuelSelectField = $fuelSelectField;

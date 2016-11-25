@@ -17,8 +17,17 @@
 
 <script type="text/javascript" >
 
+
+
+
 // gonna use this in future dev.
     //$('select').select2();
+
+
+    $('.inputType,.validationError').on("change keyup", function() {
+        $(this).css({'backgroundColor':'#FFFFFF'});
+        $(this).removeClass("validationError");
+    });
 
 
     <%

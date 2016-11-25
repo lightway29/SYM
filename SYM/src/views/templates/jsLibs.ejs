@@ -12,17 +12,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/static/js/script.js"></script>
 <script type="text/javascript" src="/static/lib/validator-js/validator.min.js"></script>
-
 <script src="/static/lib/select2/dist/js/select2.min.js"></script>
 <script src="/static/lib/sweetalert/dist/sweetalert.min.js"></script>
 
-
-
 <script type="text/javascript" >
-
-
-    //$('select').select2();
-
     <%
     if(typeof(countGroup)!='undefined'){
         for(var k=1;k<=countGroup;k++){%>
@@ -34,8 +27,6 @@
         <%}
     }
     %>
-
-
 
     $('#dobFixedDiposit').datetimepicker({
         format  : 'DD/MM/YYYY',
@@ -659,3 +650,6 @@
 
 
 </script>
+
+<!-- Load Babelified ES6/ES7 - total hack, given the state of this code-base :anguished: -->
+<script type="text/javascript" src="/static/js/bundle.js"></script>

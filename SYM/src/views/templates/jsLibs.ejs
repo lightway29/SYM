@@ -16,6 +16,11 @@
 <script src="/static/lib/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript" >
+
+// gonna use this in future dev.
+    //$('select').select2();
+
+
     <%
     if(typeof(countGroup)!='undefined'){
         for(var k=1;k<=countGroup;k++){%>
@@ -256,6 +261,45 @@
 
         Value       = Value.replace( /,/g, "" );
 
+
+
+        if(!(validator.isNumeric(Make.value) &&  (Make.value>0))){
+            swal('Validation Error...','Make must be selected!', "error");
+            Make.style.backgroundColor="#ffe6e6";
+            Make.className += " validationError";
+            return false;
+        }
+
+
+        if(!(validator.isNumeric(Make.value))){
+            swal('Validation Error...','Make must be selected!', "error");
+            Make.style.backgroundColor="#ffe6e6";
+            Make.className += " validationError";
+            return false;
+        }
+
+            if(!(validator.isAlphanumeric(Letter.value) && validator.isByteLength(Letter.value,{min:2,max:3}))){
+
+                swal('Validation Error...','Invalid Letter!', "error");
+                Letter.style.backgroundColor="#ffe6e6";
+                Letter.className += " validationError";
+                return false;
+            }
+
+            if(!(validator.isNumeric(Number.value) && validator.isByteLength(Number.value,{min:4,max:4}))){
+
+                swal('Validation Error...','Invalid Number!', "error");
+                Number.style.backgroundColor="#ffe6e6";
+                Number.className += " validationError";
+                return false;
+            }
+
+
+
+
+
+
+
         if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
 
             swal("Valuation Range Error...", "only with in "+ addComma(Math.round((OriValue.value) *0.9))+ " - "+ addComma(Math.round((OriValue.value) *1.1))+" range values can be added!", "error");
@@ -263,8 +307,8 @@
 
 
         return (
-                validator.isNumeric(Make.value)
-                &&  (Make.value>0)
+
+
                 &&  validator.isNumeric(Model.value)
                 &&  (Model.value>0)
                 &&  validator.isNumeric(Year.value)

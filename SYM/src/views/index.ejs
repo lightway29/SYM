@@ -621,14 +621,14 @@
                                                 <div class="lable"><img src="/static/images/Section_one_inner_tab_icon/number_plate.png" /></div>
                                                 <div class="info"><span class="b">Reg No.</span></div>
                                                 <div class="inputBox dobBox">
-                                                    <select id="RegistrationNumberProvince" name="VProvince" required >
+                                                    <select class="inputType" id="RegistrationNumberProvince" name="VProvince" required >
                                                         <option value="">Select</option>
                                                         <% for(var x = 0; x < province_data.length; x++) { %>
                                                         <option value="<%= province_data[x].id %>"><%= province_data[x].name %></option>
                                                         <% } %>
                                                     </select>
-                                                    <input type="text" id="RegistrationNumberLetter" name="VLetters" placeholder="CAD" pattern="[a-zA-Z0-9]{2,3}" required maxlength="3" minlength="2" style="text-transform: uppercase"/>
-                                                    <input type="text" id="RegistrationNumberNumber" name="VNumber" placeholder="1234" pattern="[0-9]{4,4}" required maxlength="4" minlength="4"/>
+                                                    <input type="text" id="RegistrationNumberLetter" class="inputType" name="VLetters" placeholder="CAD" pattern="[a-zA-Z0-9]{2,3}" required maxlength="3" minlength="2" style="text-transform: uppercase"/>
+                                                    <input type="text" id="RegistrationNumberNumber" class="inputType" name="VNumber" placeholder="1234" pattern="[0-9]{4,4}" required maxlength="4" minlength="4"/>
                                                 </div>
 
                                                 <input type="hidden" value="1" name="VType" id="type_of_v">
@@ -969,13 +969,10 @@
         <% include templates/jsLibs.ejs %>
 
         <script type="text/javascript">
-          $(function(){
-            var $vForm = $('vForm');
 
-            $vForm.validate();
-          })
 
-            function changeFun(id){
+
+          function changeFun(id){
                 if(id==1){
                     document.getElementById("type_of_v").value=1;
 
@@ -988,9 +985,6 @@
 
 
             }
-
-
-
 
 
             var Province    =   document.getElementById('RegistrationNumberProvince');
@@ -1038,6 +1032,48 @@
             var formFD  =   document.getElementById("formFD");
 
             formV.onsubmit  =   validateFormCar;
+
+            function validateFormCar() {
+
+
+                if(!(validator.isInt(Province.value) && (+Province.value>0))){
+                    swal('Validation Error...','Province must be selected!', "error");
+                    Province.style.backgroundColor="#ffe6e6";
+                    Province.className += " validationError";
+                    return false;
+                }
+
+                if(!(validator.isAlphanumeric(Letter.value.trim()) && validator.isByteLength(Letter.value.trim(),{min:2,max:3}))){
+
+                    swal('Validation Error...','Invalid Letter!', "error");
+                    Letter.style.backgroundColor="#ffe6e6";
+                    Letter.className += " validationError";
+                    return false;
+                }
+
+                if(!(validator.isNumeric(Number.value) && validator.isByteLength(Number.value,{min:4,max:4}))){
+
+                    swal('Validation Error...','Invalid Number!', "error");
+                    Number.style.backgroundColor="#ffe6e6";
+                    Number.className += " validationError";
+                    return false;
+                }
+
+
+
+
+            }
+
+
+          $('.inputType,.validationError').on("change keyup", function() {
+
+              $(this).css({'backgroundColor':'#FFFFFF'});
+              $(this).removeClass("validationError");
+          });
+
+
+
+
             form3w.onsubmit =   validateForm3W;
 
             formTravelSingle.onsubmit   =   validateFormSingleTravel;
@@ -1046,9 +1082,6 @@
             formHousingLoan.onsubmit    =   validationFormHousingLoan;
             formVehicaleLease.onsubmit  =   validationFormVehicaleLease;
 
-
-
-            // formFD.onsubmit  =  validationformFD;
 
             function validationformFD() {
 
@@ -1123,18 +1156,7 @@
 
             }
 
-            function validateFormCar() {
 
-                return (validator.isInt(Province.value)
-                        && (+Province.value>0)
-                        && validator.isAlphanumeric(Letter.value)
-                        && validator.isByteLength(Letter.value,{min:2,max:3})
-                        && validator.isNumeric(Number.value)
-                        && validator.isByteLength(Number.value,{min:4,max:4})
-                );
-
-
-            }
 
             function validateForm3W() {
 

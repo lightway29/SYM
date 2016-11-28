@@ -29,7 +29,7 @@
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">No Claims Bonus</label>
-                        <select id="no_claim_bonus" name="no_claim_bonus" class="field__input field__input--select" required>
+                        <select id="no_claim_bonus" name="no_claim_bonus" class="field__input field__input--select inputType" required>
                             <option value="">Select No Claims Bonus</option>
                             <% for(var x = 1; x < 15; x++) { %>
                             <option value="<%= x*5 %>"><%= x*5 %> %</option>
@@ -42,7 +42,7 @@
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">Current Insurer</label>
-                        <select id="insurance_company" name="insurance_company" class="field__input field__input--select" required>
+                        <select id="insurance_company" name="insurance_company" class="field__input field__input--select inputType" required>
                             <option value="">Select Current Insurer</option>
                             <% for(var y = 0; y < insurance_companies.length; y++) { %>
                             <option value="<%= insurance_companies[y].id %>"><%= insurance_companies[y].insurance_name %></option>
@@ -57,8 +57,8 @@
                 <div class="col-md-6" style="padding-left: 0">
                     <div id="showstartdatelabel" class="field__input-wrapper">
                         <label for="checkout_shipping_address_country" class="field__label">Current/pre Insurance End Date</label>
-                        <div class='input-group date' id='insuranceEndDetailDatePicker' style="margin-bottom: 10px; margin-top: 10px;">
-                            <input id="endDateInsurance" name="endDateInsurance" type='text' class="field__input readonly" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="Current/pre Insurance End Date"  required  autocomplete="off" style="margin-bottom: 0px;" />
+                        <div class='input-group date inputType' id='insuranceEndDetailDatePicker' style="margin-bottom: 10px; margin-top: 10px;">
+                            <input id="endDateInsurance" name="endDateInsurance" type='text' class="field__input readonly inputType" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="Current/pre Insurance End Date"  required  autocomplete="off" style="margin-bottom: 0px;" />
                             <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -71,7 +71,7 @@
                     <div id="showstartdatelabel" class="field__input-wrapper">
                         <label for="checkout_shipping_address_country" class="field__label">New Insurance Start Date</label>
                         <div class='input-group date' id='newInsuranceDatePicker' style="margin-bottom: 10px; margin-top: 10px;">
-                            <input id="newInsuranceDate" name="newInsuranceDate" type='text' class="field__input readonly" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="New Insurance Start Date"  required  autocomplete="off" style="margin-bottom: 0px;" />
+                            <input id="newInsuranceDate" name="newInsuranceDate" type='text' class="field__input readonly inputType" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="New Insurance Start Date"  required  autocomplete="off" style="margin-bottom: 0px;" />
                             <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -87,7 +87,7 @@
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">Cover Type</label>
-                        <select id="cover_type" class="field__input field__input--select" name="cover_type" required>
+                        <select id="cover_type" class="field__input field__input--select inputType" name="cover_type" required>
                             <option value="">Select Cover Type Required</option>
                             <% for(var z = 0; z < cover_types.length; z++) { %>
                             <option value="<%= cover_types[z].id %>"><%= cover_types[z].cover_type %></option>
@@ -103,7 +103,7 @@
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">Voluntary Excess</label>
-                        <select id="voluntary_excess" name="voluntary_excess" class="field__input field__input--select" required>
+                        <select id="voluntary_excess" name="voluntary_excess" class="field__input field__input--select inputType" required>
                             <option value="">Select Voluntary Excess</option>
                             <% for(var z = 0; z < voluntary_excess.length; z++) { %>
                             <option value="<%= voluntary_excess[z].id %>"><%= voluntary_excess[z].voluntary_excess %></option>
@@ -116,7 +116,7 @@
                 <div class="field field--required field--three-eights field--show-floating-label">
                     <div class="field__input-wrapper field__input-wrapper--select">
                         <label for="checkout_shipping_address_country" class="field__label">Purpose</label>
-                        <select id="purpose" name="purpose" class="field__input field__input--select" required>
+                        <select id="purpose" name="purpose" class="field__input field__input--select inputType" required>
                             <option value="">Select Purpose</option>
                             <% for(var z = 0; z < purposes.length; z++) { %>
                             <option value="<%= purposes[z].id %>"><%= purposes[z].purpose %></option>
@@ -128,12 +128,12 @@
             <div class="row position_none">
 
                 <div class="radiotype">
-                    <label class="control text">Autorise Agent Repair:</label>
+                    <label class="control text">Authorise Agent Repair:</label>
                     <label class="radio">
-                        <input type="radio" class="rad" name="termSmoke" value="1" id="termSmokeTrue">
+                        <input type="radio" class="rad inputType" name="termSmoke" value="1" id="termSmokeTrue">
                         <span class="outer"><span class="inner"></span></span>Yes </label>
                     <label class="radio">
-                        <input type="radio" class="rad" name="termSmoke" checked="" value="0" id="termSmokeFalse">
+                        <input type="radio" class="rad inputType" name="termSmoke" checked="" value="0" id="termSmokeFalse">
                         <span class="outer"><span class="inner"></span></span>No</label>
                 </div>
                 <div class="row insuranceButtonMarginTop position_none">

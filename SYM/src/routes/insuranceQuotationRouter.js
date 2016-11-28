@@ -23,7 +23,7 @@ module.exports = function(router){
                                 //var equation = equationRows[j].equation;
                                 insuranceCompanyValues[equationRows[j].id] = ((( equationRows[j].calculation) * insuranceValue) / 100).toFixed(2);
 
-                                console.log(equationRows[j].insurance_name)
+                                //console.log(equationRows[j].insurance_name)
 
 
 

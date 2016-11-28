@@ -17,7 +17,8 @@
 
 <script type="text/javascript" >
 
-
+//working but ugly as ****
+    //hyperform(window);
 
 
 // gonna use this in future dev.
@@ -30,70 +31,244 @@
     });
 
 
-    var vehicleRegForm      =   document.getElementById("vDetailsForm");
-    vehicleRegForm.onsubmit =   validateFormDetailsV;
-
-
-function validateFormDetailsV() {
-
-    var Make        =   document.getElementById('make');
-    var Model       =   document.getElementById("model");
-    var Year        =   document.getElementById("year");
-    var Value       =   $("input[data-type='number']").val();
-    var OriValue    =   document.getElementById("oriValue");
-    var Fuel        =   document.getElementById("fuel");
-    var val2        =   document.getElementById("valueM");
-
-    Value       = Value.replace( /,/g, "" );
-
-
-
-    if(!(validator.isNumeric(Make.value) &&  (Make.value>0))){
-        swal('Validation Error...','Make must be selected!', "error");
-        Make.style.backgroundColor="#ffe6e6";
-        Make.className += " validationError";
-        return false;
+    function hasClass(element, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
     }
 
 
-    if(!(validator.isNumeric(Model.value) &&  (Model.value>0))){
-        swal('Validation Error...','Model must be selected!', "error");
-        Model.style.backgroundColor="#ffe6e6";
-        Model.className += " validationError";
-        return false;
+
+    function validateFormDetailsV() {
+
+        var Make        =   document.getElementById('make');
+        var Model       =   document.getElementById("model");
+        var Year        =   document.getElementById("year");
+        var Value       =   $("input[data-type='number']").val();
+        var OriValue    =   document.getElementById("oriValue");
+        var Fuel        =   document.getElementById("fuel");
+        var val2        =   document.getElementById("valueM");
+
+        Value       = Value.replace( /,/g, "" );
+
+
+
+        if(!(validator.isNumeric(Make.value) &&  (Make.value>0))){
+                swal('Validation Error...','Make must be selected!', "error");
+                Make.style.backgroundColor="#ffe6e6";
+                Make.className += " validationError";
+                return false;
+        }
+
+
+        if(!(validator.isNumeric(Model.value) &&  (Model.value>0))){
+                swal('Validation Error...','Model must be selected!', "error");
+                Model.style.backgroundColor="#ffe6e6";
+                Model.className += " validationError";
+                return false;
+        }
+
+        if(!(validator.isNumeric(Fuel.value) &&  (Fuel.value>0))){
+                swal('Validation Error...','Fuel must be selected!', "error");
+                Fuel.style.backgroundColor="#ffe6e6";
+                Fuel.className += " validationError";
+                return false;
+        }
+
+        if(!(validator.isNumeric(Year.value) &&  (Year.value>0))){
+                swal('Validation Error...','Year must be selected!', "error");
+                Year.style.backgroundColor="#ffe6e6";
+                Year.className += " validationError";
+                return false;
+        }
+
+
+        if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
+
+                swal("Valuation Range Error...", "only with in "+ addComma(Math.round((OriValue.value) *0.9))+ " - "+ addComma(Math.round((OriValue.value) *1.1))+" range values can be added!", "error");
+                val2.style.backgroundColor="#ffe6e6";
+                val2.className += " validationError";
+                return false;
+        }
+
+
+        return true;
+
+
     }
 
-    if(!(validator.isNumeric(Fuel.value) &&  (Fuel.value>0))){
-        swal('Validation Error...','Fuel must be selected!', "error");
-        Fuel.style.backgroundColor="#ffe6e6";
-        Fuel.className += " validationError";
-        return false;
+
+    function validateFormPersonalV() {
+
+        var Title       =   document.getElementById('title');
+        var FirstName   =   document.getElementById('firstname');
+        var LastName    =   document.getElementById("lastname");
+        var Email       =   document.getElementById("email");
+        var Mobile      =   document.getElementById("mobile");
+        var Nic         =   document.getElementById("nic");
+
+        var phonePattern=/^\d{10}$/;
+        var idPattern=/^[0-9]{9}[vVxX]$/;
+
+
+        if(!(validator.isAlpha(Title.value))){
+            swal('Validation Error...','Title must be selected!', "error");
+            Title.style.backgroundColor="#ffe6e6";
+            Title.className += " validationError";
+            return false;
+        }
+
+        if(!(validator.isAlpha(FirstName.value.trim()))){
+            swal('Validation Error...','Invalid First Name!', "error");
+            FirstName.style.backgroundColor="#ffe6e6";
+            FirstName.className += " validationError";
+            return false;
+        }
+
+        if(!(validator.isAlpha(LastName.value.trim()))){
+            swal('Validation Error...','Invalid Last Name!', "error");
+            LastName.style.backgroundColor="#ffe6e6";
+            LastName.className += " validationError";
+            return false;
+        }
+
+        if(!(validator.isEmail(Email.value.trim()))){
+            swal('Validation Error...','Invalid Email Address!', "error");
+            Email.style.backgroundColor="#ffe6e6";
+            Email.className += " validationError";
+            return false;
+        }
+
+        if(!(strMatch(Mobile.value,phonePattern))){
+            swal('Validation Error...','Invalid Mobile Number!', "error");
+            Mobile.style.backgroundColor="#ffe6e6";
+            Mobile.className += " validationError";
+            return false;
+        }
+
+
+        if(!(strMatch(Nic.value,idPattern))){
+            swal('Validation Error...','Invalid NIC Number!', "error");
+            Nic.style.backgroundColor="#ffe6e6";
+            Nic.className += " validationError";
+            return false;
+        }
+
+
+        return true;
+
     }
 
-    if(!(validator.isNumeric(Year.value) &&  (Year.value>0))){
-        swal('Validation Error...','Year must be selected!', "error");
-        Year.style.backgroundColor="#ffe6e6";
-        Year.className += " validationError";
-        return false;
+
+    function validateFormInsuranceV() {
+
+        var no_claim_bonus      =   document.getElementById('no_claim_bonus');
+        var insurance_company   =   document.getElementById('insurance_company');
+        var exInsurance         =   document.getElementById("endDateInsurance");
+        var startDateInsurance  =   document.getElementById("newInsuranceDate");
+        var cover_type          =   document.getElementById("cover_type");
+        var voluntary_excess    =   document.getElementById("voluntary_excess");
+        var purpose             =   document.getElementById("purpose");
+        var termSmokeTrue       =   document.getElementById("termSmokeTrue");
+        var termSmokeFalse      =   document.getElementById("termSmokeFalse");
+
+
+
+        //var exInsuranceDateObj  =   $("#datetimepicker6").date;
+
+        if((termSmokeFalse.checked===termSmokeTrue.checked)){
+            swal('Validation Error...','Authorise Agent Repair must be selected!', "error");
+
+            termSmokeFalse.style.backgroundColor="#ffe6e6";
+            termSmokeTrue.style.backgroundColor="#ffe6e6";
+
+            termSmokeFalse.className += " validationError";
+            termSmokeTrue.className += " validationError";
+            return false;
+        }
+
+        if(!(validator.isNumeric(no_claim_bonus.value) &&  (no_claim_bonus.value>0))){
+            swal('Validation Error...','No claim bonus must be selected!', "error");
+            no_claim_bonus.style.backgroundColor="#ffe6e6";
+            no_claim_bonus.className += " validationError";
+            return false;
+        }
+
+        if(!(validator.isNumeric(insurance_company.value) &&  (insurance_company.value>0))){
+            swal('Validation Error...','previous/current Insurance company must be selected!', "error");
+            insurance_company.style.backgroundColor="#ffe6e6";
+            insurance_company.className += " validationError";
+            return false;
+        }
+
+
+        if(!(moment(exInsurance.value, "DD/MM/YYYY", true).isValid())){
+            swal('Validation Error...','Current/pre Insurance End Date must be selected!', "error");
+            exInsurance.style.backgroundColor="#ffe6e6";
+            exInsurance.className += " validationError";
+            return false;
+        }
+
+        if(!(moment(startDateInsurance.value, "DD/MM/YYYY", true).isValid())){
+            swal('Validation Error...','New Insurance Start Date must be selected!', "error");
+            startDateInsurance.style.backgroundColor="#ffe6e6";
+            startDateInsurance.className += " validationError";
+            return false;
+        }
+
+
+        if(!(validator.isNumeric(cover_type.value) &&  (cover_type.value>0))){
+            swal('Validation Error...','Cover type must be selected!', "error");
+            cover_type.style.backgroundColor="#ffe6e6";
+            cover_type.className += " validationError";
+            return false;
+        }
+
+
+        if(!(validator.isNumeric(voluntary_excess.value) &&  (voluntary_excess.value>0))){
+            swal('Validation Error...','Voluntary excess must be selected!', "error");
+            voluntary_excess.style.backgroundColor="#ffe6e6";
+            voluntary_excess.className += " validationError";
+            return false;
+        }
+
+
+        if(!(validator.isNumeric(purpose.value) &&  (purpose.value>0))){
+            swal('Validation Error...','Purpose must be selected!', "error");
+            purpose.style.backgroundColor="#ffe6e6";
+            purpose.className += " validationError";
+            return false;
+        }
+
+
+        return true;
+
+
     }
 
 
-    if(((+(OriValue.value) *0.9) > +Value) || ((+(OriValue.value) *1.1) < +Value )){
+    function validateFormVFuther() {
 
-        swal("Valuation Range Error...", "only with in "+ addComma(Math.round((OriValue.value) *0.9))+ " - "+ addComma(Math.round((OriValue.value) *1.1))+" range values can be added!", "error");
-        val2.style.backgroundColor="#ffe6e6";
-        val2.className += " validationError";
-        return false;
+        var engine_number   =   document.getElementById('engine_number');
+        var chassis_no      =   document.getElementById('chassis_no');
+
+
+        if(validator.isEmpty(engine_number.value)){
+            swal('Validation Error...','Engine number must be entered!', "error");
+            engine_number.style.backgroundColor="#ffe6e6";
+            engine_number.className += " validationError";
+            return false;
+        }
+
+        if(validator.isEmpty(chassis_no.value)){
+            swal('Validation Error...','Chassis number must be entered!', "error");
+            chassis_no.style.backgroundColor="#ffe6e6";
+            chassis_no.className += " validationError";
+            return false;
+        }
+
+
+
+        return true;
     }
-
-
-    return true;
-
-
-
-
-
-}
 
 
     <%
@@ -219,6 +394,13 @@ function validateFormDetailsV() {
 
             var today=new Date();
 
+            if(hasClass(document.getElementById("endDateInsurance"),'inputType') && hasClass(document.getElementById("endDateInsurance"),'validationError') ){
+
+                $('#endDateInsurance').css({'backgroundColor':'#FFFFFF'});
+                $('#endDateInsurance').removeClass("validationError");
+            }
+
+
             if(today>e.date){
 
                 $('#newInsuranceDatePicker').data("DateTimePicker").minDate(today);
@@ -229,6 +411,13 @@ function validateFormDetailsV() {
 
         });
         $("#newInsuranceDatePicker").on("dp.change", function (e) {
+
+            if(hasClass(document.getElementById("newInsuranceDate"),'inputType') && hasClass(document.getElementById("newInsuranceDate"),'validationError') ){
+
+                $('#newInsuranceDate').css({'backgroundColor':'#FFFFFF'});
+                $('#newInsuranceDate').removeClass("validationError");
+            }
+
             $('#insuranceEndDetailDatePicker').data("DateTimePicker").maxDate(e.date);
         });
     });
@@ -340,29 +529,7 @@ function validateFormDetailsV() {
     }
 
 
-    function validateFormPersonalV() {
 
-        var Title       =   document.getElementById('title');
-        var FirstName   =   document.getElementById('firstname');
-        var LastName    =   document.getElementById("lastname");
-        var Email       =   document.getElementById("email");
-        var Mobile      =   document.getElementById("mobile");
-        var Nic         =   document.getElementById("nic");
-
-        var phonePattern=/^\d{10}$/;
-        var idPattern=/^[0-9]{9}[vVxX]$/;
-
-
-        return (
-                validator.isAlpha(Title.value)
-                &&  validator.isAlpha(FirstName.value)
-                &&  validator.isAlpha(LastName.value)
-                &&  validator.isEmail(Email.value)
-                &&  strMatch(Mobile.value,phonePattern)
-                &&  strMatch(Nic.value,idPattern)
-        );
-
-    }
 
     function validateFormPersonalHousing() {
 
@@ -498,51 +665,10 @@ function validateFormDetailsV() {
 
 
 
-    function validateFormInsuranceV() {
-
-        var no_claim_bonus      =   document.getElementById('no_claim_bonus');
-        var insurance_company   =   document.getElementById('insurance_company');
-        var exInsurance         =   document.getElementById("endDateInsurance");
-        var startDateInsurance  =   document.getElementById("newInsuranceDate");
-        var cover_type          =   document.getElementById("cover_type");
-        var voluntary_excess    =   document.getElementById("voluntary_excess");
-        var purpose             =   document.getElementById("purpose");
-        var termSmokeTrue       =   document.getElementById("termSmokeTrue");
-        var termSmokeFalse      =   document.getElementById("termSmokeFalse");
-
-        return (
-                !(termSmokeFalse.checked===termSmokeTrue.checked)
-                &&  validator.isNumeric(no_claim_bonus.value)
-                &&  (no_claim_bonus.value>0)
-                &&  validator.isNumeric(insurance_company.value)
-                &&  (insurance_company.value>0)
-                &&  validator.isNumeric(cover_type.value)
-                &&  (cover_type.value>0)
-                &&  moment(exInsurance.value, "DD/MM/YYYY", true).isValid()
-                &&  moment(startDateInsurance.value, "DD/MM/YYYY", true).isValid()
-                &&  validator.isNumeric(voluntary_excess.value)
-                &&  (voluntary_excess.value>0)
-                &&  validator.isNumeric(purpose.value)
-                &&  (purpose.value>0)
-
-        );
 
 
-    }
 
 
-    function validateFormVFuther() {
-
-        var engine_number   =   document.getElementById('engine_number');
-        var chassis_no      =   document.getElementById('chassis_no');
-
-        return (
-                !(validator.isEmpty(engine_number.value))
-                &&  !(validator.isEmpty(chassis_no.value))
-
-        );
-
-    }
 
 
     function validateFormShippingV() {
